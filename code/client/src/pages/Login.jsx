@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button, TextField, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 
+import classes from "../style/login.module.css"
+
 const Login = () => {
 
     const [loginData, setLoginData] = useState({
@@ -28,25 +30,8 @@ const Login = () => {
     }
 
     return (
-        <Box style={{
-            background:"#b7b7b7",
-            height:"100vh",
-            display:"flex",
-            justifyContent:"center",
-            alignItems:"center",
-        }}>
-            <Box style={{
-                padding:"0 100px",
-                maxWidth:"400px",
-                height:"600px",
-                background:"#fff",
-                display:"flex",
-                flexDirection:"column",
-                justifyContent:"center",
-                alignItems:"center",
-                gap:"40px",
-                borderRadius:"20px"
-            }}>
+        <Box className={classes.login_container}>
+            <Box className={classes.login_content}>
                 <Typography variant="h4">
                     Login
                 </Typography>
@@ -58,13 +43,7 @@ const Login = () => {
 
                 <Button onClick={loginHandler} variant="contained">Continue</Button>
 
-                <Box style={{
-                    display:"flex",
-                    flexDirection:"column",
-                    justifyContent:"center",
-                    alignItems:"center",
-                    gap:"10px",
-                }}>
+                <Box className={classes.login_login}>
                     <NavLink style={{
                         color:"black"
                     }} to="/register">

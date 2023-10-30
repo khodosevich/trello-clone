@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 
-import "./reset.css"
+import "./style/reset.css"
 import Header from "./components/Header";
 
 const Main = () => {

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Box, Typography, TextField, Button} from "@mui/material";
 import { NavLink } from 'react-router-dom';
 
+import classes from "../style/registration.module.css"
 
 const Register = () => {
 
@@ -30,24 +31,8 @@ const Register = () => {
 
 
     return (
-        <Box style={{
-            background:"#b7b7b7",
-            height:"100vh",
-            display:"flex",
-            justifyContent:"center",
-            alignItems:"center",
-        }}>
-            <Box style={{
-                width:"400px",
-                height:"600px",
-                background:"#fff",
-                display:"flex",
-                flexDirection:"column",
-                justifyContent:"center",
-                alignItems:"center",
-                gap:"40px",
-                borderRadius:"20px"
-            }}>
+        <Box className={classes.register_container}>
+            <Box className={classes.register_content}>
                 <Typography variant="h4">
                     Registration
                 </Typography>
