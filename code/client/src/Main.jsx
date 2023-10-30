@@ -7,10 +7,12 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 
 import "./reset.css"
+import Header from "./components/Header";
 
 const Main = () => {
     return (
         <Box>
+            <Header/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>

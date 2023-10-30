@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, TextField, Typography} from "@mui/material";
+import {NavLink} from "react-router-dom";
 
 const Login = () => {
 
@@ -35,7 +36,8 @@ const Login = () => {
             alignItems:"center",
         }}>
             <Box style={{
-                width:"400px",
+                padding:"0 100px",
+                maxWidth:"400px",
                 height:"600px",
                 background:"#fff",
                 display:"flex",
@@ -49,13 +51,32 @@ const Login = () => {
                     Login
                 </Typography>
 
-                <Box style={{display:"flex",gap:"15px" , flexDirection:"column"}}>
+                <Box style={{display:"flex",gap:"15px" ,minWidth:"200px" ,flexDirection:"column"}}>
                     <TextField onChange={(e) => usernameHandler(e)} id="outlined-basic" label="Username" variant="outlined" />
                     <TextField onChange={(e) => passwordHandler(e)} id="outlined-basic" type="password" label="Password" variant="outlined" />
                 </Box>
 
                 <Button onClick={loginHandler} variant="contained">Continue</Button>
 
+                <Box style={{
+                    display:"flex",
+                    flexDirection:"column",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    gap:"10px",
+                }}>
+                    <NavLink style={{
+                        color:"black"
+                    }} to="/register">
+                        Registration
+                    </NavLink>
+
+                    <NavLink style={{
+                        color:"black"
+                    }} to="/">
+                        On main
+                    </NavLink>
+                </Box>
             </Box>
         </Box>
     );
