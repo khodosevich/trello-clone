@@ -1,53 +1,58 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import {methods} from "../api/methods";
 import {Box, Button, TextField, Typography} from "@mui/material";
+import classes from "../style/auth-page.module.css";
 import {NavLink} from "react-router-dom";
 
-import classes from "../style/login.module.css"
-
-const Login = () => {
-
-    const [loginData, setLoginData] = useState({
+const AuthPage = ({isExist}) => {
+    const [creds, setCreds] = useState({
         username:"",
         password:""
     })
 
     const usernameHandler = (e) => {
-        setLoginData(prevState => ({
+        setCreds(prevState => ({
             ...prevState,
             username:e.target.value
         }))
     }
 
     const passwordHandler = (e) => {
-        setLoginData(prevState => ({
+        setCreds(prevState => ({
             ...prevState,
             password:e.target.value
         }))
     }
 
-    const loginHandler = () => {
-        console.log(loginData)
+    const authHandler = async () => {
+
+        const response = await methods.register(loginData)
+        const {data} = await response.data
+        // localStorage.setItem(data)
+        console.log(data)
+
     }
 
+
     return (
-        <Box className={classes.login_container}>
-            <Box className={classes.login_content}>
+        <Box className={classes.auth_container}>
+            <Box className={classes.auth_content}>
                 <Typography variant="h4">
-                    Login
+                    {isExist ? "Login" : "Registration"}
                 </Typography>
 
-                <Box style={{display:"flex",gap:"15px" ,minWidth:"200px" ,flexDirection:"column"}}>
+                <Box style={{display:"flex",gap:"15px" , flexDirection:"column"}}>
                     <TextField onChange={(e) => usernameHandler(e)} id="outlined-basic" label="Username" variant="outlined" />
                     <TextField onChange={(e) => passwordHandler(e)} id="outlined-basic" type="password" label="Password" variant="outlined" />
                 </Box>
 
-                <Button onClick={loginHandler} variant="contained">Continue</Button>
+                <Button onClick={authHandler} variant="contained">Continue</Button>
 
-                <Box className={classes.login_login}>
+                <Box className={classes.auth_login}>
                     <NavLink style={{
                         color:"black"
-                    }} to="/register">
-                        Registration
+                    }} to= {isExist ? "/register" : "/login"}>
+                        {isExist ? "Registration" : "Login"}
                     </NavLink>
 
                     <NavLink style={{
@@ -61,4 +66,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default AuthPage;

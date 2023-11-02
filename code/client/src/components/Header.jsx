@@ -17,7 +17,7 @@ const Header = () => {
                 color:"black",
                 textDecoration:"none"
             }} to="/">
-                Logo
+                TaskManager
             </NavLink>
 
             <NavLink style={{

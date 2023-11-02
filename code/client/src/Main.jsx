@@ -1,13 +1,12 @@
 import React from 'react';
 import Home from "./pages/Home";
 import {Box} from "@mui/material";
-import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import { Route, Routes} from "react-router-dom";
 import NotFound from "./pages/NotFound";
 
 import "./style/reset.css"
 import Header from "./components/Header";
+import AuthPage from "./pages/AuthPage";
 
 const Main = () => {
     return (
@@ -15,8 +14,8 @@ const Main = () => {
             <Header/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
+                <Route path="/login" element={<AuthPage isExist={true}/>}/>
+                <Route path="/register" element={<AuthPage isExist={false}/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </Box>

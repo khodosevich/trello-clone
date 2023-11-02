@@ -1,6 +1,5 @@
 import React from 'react'
-import {Box, Button, Typography} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {Box} from "@mui/material";
 
 const Home = () => {
 
@@ -8,6 +7,8 @@ const Home = () => {
     return(
         <Box>
            Home page
+
+
         </Box>
     )
 

@@ -1,4 +1,4 @@
-.login_container {
+.auth_container {
     background:#b7b7b7;
     height:100vh;
     display:flex;
@@ -8,7 +8,7 @@
     padding-top: 50px;
 }
 
-.login_content {
+.auth_content {
     padding:0 100px;
     max-width:400px;
     height:600px;
@@ -22,7 +22,7 @@
 }
 
 
-.login_login {
+.auth_login {
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -32,23 +32,23 @@
 
 
 @media (max-width: 430px) {
-    .login_container {
+    .auth_container {
     }
 
-    .login_content {
+    .auth_content {
         height:550px;
         padding:0 80px;
     }
 }
 
 @media (max-width: 370px) {
-    .login_content {
+    .auth_content {
         padding:0 60px;
     }
 }
 
 @media (max-width: 340px) {
-    .login_content {
+    .auth_content {
         padding:0 55px;
     }
 }
