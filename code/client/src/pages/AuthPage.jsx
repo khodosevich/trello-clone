@@ -26,11 +26,19 @@ const AuthPage = ({isExist}) => {
 
     const authHandler = async () => {
 
-        const response = await methods.register(loginData)
-        const {data} = await response.data
-        // localStorage.setItem(data)
-        console.log(data)
-
+        if(isExist) {
+            console.log("login")
+            const response = await methods.login(creds)
+            const {data} = await response.data
+            // localStorage.setItem(data)
+            console.log(data)
+        }else {
+            console.log("register")
+             const response = await methods.register(creds)
+            const {data} = await response.data
+            // localStorage.setItem(data)
+            console.log(data)
+        }
     }
 
 
