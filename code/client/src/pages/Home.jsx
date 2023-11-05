@@ -7,7 +7,7 @@ import cards from "../json/productivity-card.json"
 import CardProductivity from "../components/CardProductivity";
 import CardAction from "../components/CardAction";
 import axios from "axios";
-import Footer from "../components/Footer";
+import RegisterForm from "../components/RegisterForm";
 
 const Home = () => {
 
@@ -34,12 +34,7 @@ const Home = () => {
                         <p className={classes.home_content_left_subtitle}>
                             Keep everything in the same place—even if your team isn’t.
                         </p>
-                        <Box className={classes.home_content_left_form}>
-                            <input className={classes.home_content_left_input} type="text" placeholder="Email" />
-                            <button className={classes.home_content_btn}>
-                                Sign up - it’s free!
-                            </button>
-                        </Box>
+                        <RegisterForm/>
                     </Box>
                     <Box className={classes.home_content_right}>
                         <img className={classes.home_content_right_img} src="./assets/TrelloUICollage_4x.webp" alt=""/>
@@ -96,18 +91,10 @@ const Home = () => {
                 <img className={classes.start_taskmanager_left_img}  src="./assets/BigSwingFooterHeroGraphic__Left.svg" alt=""/>
                 <Box className={classes.home_container}>
                     <p className={classes.start_taskmanager_title}>Get started with Us today</p>
-                    <Box className={classes.home_content_left_form}>
-                        <input className={classes.home_content_left_input} type="text" placeholder="Email" />
-                        <button className={classes.home_content_btn}>
-                            Sign up - it’s free!
-                        </button>
-                    </Box>
+                    <RegisterForm/>
                 </Box>
                 <img className={classes.start_taskmanager_right_img}  src="./assets/BigSwingFooterHeroGraphic__Right.svg" alt=""/>
             </Box>
-
-            <Footer/>
-
         </>
     )
 

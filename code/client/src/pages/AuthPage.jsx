@@ -1,15 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {methods} from "../api/methods";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import classes from "../style/auth-page.module.css";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 
 const AuthPage = ({isExist}) => {
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const email = searchParams.get("email");
+
     const [creds, setCreds] = useState({
         username:"",
         password:""
     })
-
     const usernameHandler = (e) => {
         setCreds(prevState => ({
             ...prevState,
@@ -41,6 +45,12 @@ const AuthPage = ({isExist}) => {
         }
     }
 
+    useEffect(() => {
+        setCreds({
+            username:email,
+            password:""
+        })
+    }, []);
 
     return (
         <Box className={classes.auth_container}>
@@ -50,7 +60,7 @@ const AuthPage = ({isExist}) => {
                 </Typography>
 
                 <Box style={{display:"flex",gap:"15px" , flexDirection:"column"}}>
-                    <TextField onChange={(e) => usernameHandler(e)} id="outlined-basic" label="Username" variant="outlined" />
+                    <TextField value={creds.username} onChange={(e) => usernameHandler(e)} id="outlined-basic" label="Username" variant="outlined" />
                     <TextField onChange={(e) => passwordHandler(e)} id="outlined-basic" type="password" label="Password" variant="outlined" />
                 </Box>
 

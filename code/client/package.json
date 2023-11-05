@@ -13,6 +13,7 @@
     "@babel/preset-react": "^7.22.15",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.14",
     "axios": "^1.5.1",
     "clean-webpack-plugin": "^4.0.0",
