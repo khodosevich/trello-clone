@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Home from "./pages/Home";
 import {Box} from "@mui/material";
 import {Route, Routes, useLocation} from "react-router-dom";
@@ -9,26 +9,53 @@ import Header from "./components/Header";
 import AuthPage from "./pages/AuthPage";
 import Footer from "./components/Footer";
 import Workspace from "./pages/Workspace";
+import AuthGuard from "./components/AuthGuard";
+
+export const UserContext = React.createContext()
 
 const Main = () => {
 
-    const location = useLocation()
+    const logout = () => {
+        localStorage.removeItem("token")
+        setUser({
+            id: 0,
+            username: "",
+            aud:"",
+            isAuth: false,
+        })
+    }
 
+    const [user, setUser] = useState({
+        id: 0,
+        username: "",
+        aud:"",
+        isAuth: false,
+    })
+
+
+    const location = useLocation()
     const renderHeaderAndFooter = location.pathname !== "/register" &&  location.pathname !== "/login"
 
     return (
         <Box>
-            {renderHeaderAndFooter && <Header/>}
-            <Box style={{ minHeight:"80vh"}}>
-                <Routes >
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/login" element={<AuthPage isExist={true}/>}/>
-                    <Route path="/register" element={<AuthPage isExist={false}/>}/>
-                    <Route path="/workspace/*" element={<Workspace/>}/>
-                    <Route path="*" element={<NotFound/>}/>
-                </Routes>
-            </Box>
-            {renderHeaderAndFooter && <Footer />}
+            <UserContext.Provider value={{user,setUser}}>
+                {renderHeaderAndFooter && <Header/>}
+                <Box style={{ minHeight:"80vh"}}>
+                    <AuthGuard>
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/login" element={<AuthPage isExist={true}/>}/>
+                            <Route path="/register" element={<AuthPage isExist={false}/>}/>
+                            <Route path="*" element={<NotFound/>}/>
+
+                            {user.isAuth &&
+                                <Route path="/workspace/*" element={<Workspace />} />
+                            }
+                        </Routes>
+                    </AuthGuard>
+                </Box>
+                {renderHeaderAndFooter && <Footer />}
+            </UserContext.Provider>
         </Box>
     );
 };

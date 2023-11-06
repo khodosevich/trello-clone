@@ -1,10 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {methods} from "../api/methods";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import classes from "../style/auth-page.module.css";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {UserContext} from "../Main";
+import {parseToken} from "../api/parseToken";
 
 const AuthPage = ({isExist}) => {
+
+    const {user,setUser} = useContext(UserContext)
+    const navigate = useNavigate()
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -33,15 +38,35 @@ const AuthPage = ({isExist}) => {
         if(isExist) {
             console.log("login")
             const response = await methods.login(creds)
-            const {data} = await response.data
-            // localStorage.setItem(data)
-            console.log(data)
+            const data = await response.data
+            localStorage.setItem("token" , JSON.stringify(data))
+
+            const decode = parseToken(data.accessToken)
+
+            setUser({
+                id: decode.sid,
+                username: decode.name,
+                aud:decode.aud,
+                isAuth: true,
+            })
+
+            navigate("/")
+
         }else {
             console.log("register")
-             const response = await methods.register(creds)
-            const {data} = await response.data
-            // localStorage.setItem(data)
-            console.log(data)
+            const response = await methods.register(creds)
+            const data = await response.data
+            localStorage.setItem(data)
+
+            const decode = parseToken(data.accessToken)
+
+            setUser({
+                id: decode.sid,
+                username: decode.name,
+                aud:decode.aud,
+                isAuth: true,
+            })
+
         }
     }
 
@@ -60,7 +85,10 @@ const AuthPage = ({isExist}) => {
                 </Typography>
 
                 <Box style={{display:"flex",gap:"15px" , flexDirection:"column"}}>
-                    <TextField value={creds.username} onChange={(e) => usernameHandler(e)} id="outlined-basic" label="Username" variant="outlined" />
+                    <TextField
+                        value={creds.username || ''}
+                        onChange={(e) => usernameHandler(e)}
+                        id="outlined-basic" label="Username" variant="outlined" />
                     <TextField onChange={(e) => passwordHandler(e)} id="outlined-basic" type="password" label="Password" variant="outlined" />
                 </Box>
 

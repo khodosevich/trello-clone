@@ -13,19 +13,16 @@ export const methods = {
       return api.get("desk/visibility")
     },
     async register(user) {
-         const response = await api.post("user/register", {
-            username: user.username,
-            password: user.password
+         return api.post("user/register", {
+             "userName": user.username,
+             "password": user.password
         })
-
-        console.log(response)
-
     },
    login(user){
-         return  api.post("user/login",{
-             username: user.username,
-            password: user.password
-        })
+       return api.post("user/login",{
+             "userName": user.username,
+             "password": user.password
+       })
     },
      refresh(){
 
