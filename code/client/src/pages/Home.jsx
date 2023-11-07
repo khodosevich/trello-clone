@@ -29,7 +29,7 @@ const Home = () => {
                 <Box className={classes.home_content}>
                     <Box className={classes.home_content_left}>
                         <h1 className={classes.home_content_left_title}>
-                            TaskManager brings all your tasks, teammates, and tools together
+                            Trello brings all your tasks, teammates, and tools together
                         </h1>
                         <p className={classes.home_content_left_subtitle}>
                             Keep everything in the same place—even if your team isn’t.
@@ -63,7 +63,7 @@ const Home = () => {
             <Box className={classes.action_content}>
                 <Box className={classes.home_container}>
                     <h2 className={classes.action_content_title}>
-                        TaskManager in action
+                        Trello in action
                     </h2>
                     <p className={classes.action_content_subtitle}>
                         Workflows for any project, big or small
