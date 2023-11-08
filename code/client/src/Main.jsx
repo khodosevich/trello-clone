@@ -48,9 +48,8 @@ const Main = () => {
                             <Route path="/register" element={<AuthPage isExist={false}/>}/>
                             <Route path="*" element={<NotFound/>}/>
 
-                            {user.isAuth &&
-                                <Route path="/workspace/*" element={<Workspace />} />
-                            }
+                            <Route path="/workspace/*" element={<Workspace />} />
+
                         </Routes>
                     </AuthGuard>
                 </Box>

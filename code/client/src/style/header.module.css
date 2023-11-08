@@ -46,6 +46,7 @@
 .menu_link {
     text-decoration: none;
     color: rgb(23, 43, 77);
+    width: 120px;
 }
 
 .header_links {

@@ -14,7 +14,7 @@ import {NavLink} from "react-router-dom";
 
 const SideBarBoards = () => {
 
-    const handleCreateBoard = () => {
+    const handleCreateWorkspace = () => {
         console.log('Создать доску');
     };
 
@@ -52,9 +52,9 @@ const SideBarBoards = () => {
                             variant="contained"
                             color="primary"
                             style={{width:"100%"}}
-                            onClick={handleCreateBoard}
+                            onClick={handleCreateWorkspace}
                         >
-                            Создать доску
+                            Создать workspace
                         </Button>
                     </NavLink>
                 </List>

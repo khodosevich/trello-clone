@@ -11,3 +11,14 @@
     display:flex;
 
 }
+
+.workspace_content {
+    display:flex;
+    flex-direction: row;
+}
+
+.title {
+    margin-top: 10px;
+    width: 100%;
+    color: darkblue;
+}

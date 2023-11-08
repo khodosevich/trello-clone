@@ -1,11 +1,12 @@
-import React, {useContext} from 'react';
-import {Box, Button, Menu, MenuItem} from "@mui/material";
+import React, {useContext, useEffect, useState} from 'react';
+import {Box, Menu, MenuItem} from "@mui/material";
 import {NavLink} from "react-router-dom";
 
 import classes from '../style/header.module.css'
 import {UserContext} from "../Main";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import {methods} from "../api/methods";
 
 const Header = () => {
 
@@ -31,6 +32,23 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    const [workspaces, setWorkspaces] = useState([])
+
+    const fetchData = async () => {
+        const token =JSON.parse(localStorage.getItem("token")).accessToken
+        console.log(token)
+        const data = await methods.getWorkSpaces(token)
+        setWorkspaces(data.data)
+    }
+
+    useEffect(() => {
+        if(user.isAuth) {
+            fetchData()
+        }
+        console.log(workspaces)
+    }, [anchorEl]);
+
+
     return (
         <Box className={classes.header} >
             <Box className={classes.header_content}>
@@ -40,38 +58,36 @@ const Header = () => {
                         <img style={{height:"60px" , width:"100%",padding:"10px"}} src="./assets/logo.png" alt=""/>
                     </NavLink>
 
-
-
                     {
                         user.isAuth &&
                         <List className={classes.menu}>
-                            <NavLink className={classes.menu_link} to="/workspace">
-                                <ListItem>
-                                    <NavLink
-                                        to="/workspace"
-                                        onClick={handleClick}
-                                        className={classes.menu_link}
-                                    >
-                                        My workspaces
-                                    </NavLink>
-                                    <Menu
-                                        anchorEl={anchorEl}
-                                        id="simple-menu"
-                                        keepMounted
-                                        open={Boolean(anchorEl)}
-                                        onClose={handleClose}
-                                    >
-                                        <MenuItem onClick={handleClose}>workspace 1</MenuItem>
-                                        <MenuItem onClick={handleClose}>workspace 2</MenuItem>
-                                        <MenuItem onClick={handleClose}>workspace 3</MenuItem>
-                                    </Menu>
-                                </ListItem>
-                            </NavLink>
-                            <NavLink className={classes.menu_link} to="#">
-                                <ListItem>
+                            <ListItem>
+                                <NavLink
+                                    to="/workspace"
+                                    onClick={handleClick}
+                                    className={classes.menu_link}
+                                >
+                                    My workspaces
+                                </NavLink>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    id="simple-menu"
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    {
+                                        workspaces.length !== null &&
+                                        workspaces.map((item,index) => (<NavLink to={"/workspace/" + item.id}>
+                                                <MenuItem key={index} onClick={handleClose}>{item.name}</MenuItem>
+                                        </NavLink>
+                                        ))
+                                    }
+                                </Menu>
+                            </ListItem>
+                            <ListItem>
                                     Favorites
-                                </ListItem>
-                            </NavLink>
+                            </ListItem>
                         </List>
 
                     }

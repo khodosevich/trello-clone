@@ -26,6 +26,21 @@ export const methods = {
     },
      refresh(){
 
+    },
+    createWorkspace(token,workspace,type) {
+         return api.post("workSpace",{
+             "workSpaceName": workspace,
+             "visibilityTypeCode": type
+         },{
+             headers: {
+            'Authorization': `Bearer ${token}`
+        }})
+    },
+    getWorkSpaces(token) {
+        return api.get("user/workSpace",{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
     }
 
 }
