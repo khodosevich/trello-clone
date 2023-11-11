@@ -36,7 +36,6 @@ const Header = () => {
 
     const fetchData = async () => {
         const token =JSON.parse(localStorage.getItem("token")).accessToken
-        console.log(token)
         const data = await methods.getWorkSpaces(token)
         setWorkspaces(data.data)
     }
@@ -45,7 +44,6 @@ const Header = () => {
         if(user.isAuth) {
             fetchData()
         }
-        console.log(workspaces)
     }, [anchorEl]);
 
 
@@ -78,8 +76,8 @@ const Header = () => {
                                 >
                                     {
                                         workspaces.length !== null &&
-                                        workspaces.map((item,index) => (<NavLink to={"/workspace/" + item.id}>
-                                                <MenuItem key={index} onClick={handleClose}>{item.name}</MenuItem>
+                                        workspaces.map((item,index) => (<NavLink key={index} to={"/workspace/" + item.id}>
+                                                <MenuItem  onClick={handleClose}>{item.name}</MenuItem>
                                         </NavLink>
                                         ))
                                     }

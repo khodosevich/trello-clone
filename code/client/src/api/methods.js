@@ -12,7 +12,7 @@ export const methods = {
         console.log("desk visibility")
       return api.get("desk/visibility")
     },
-    async register(user) {
+    register(user) {
          return api.post("user/register", {
              "userName": user.username,
              "password": user.password
@@ -38,6 +38,39 @@ export const methods = {
     },
     getWorkSpaces(token) {
         return api.get("user/workSpace",{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+    },
+    createDesk(token,data) {
+        return api.post("desk",data,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+    },
+    getDesk(token,workspaceId) {
+
+        return api.get(`desk?workSpaceId=${workspaceId}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+        }})
+    },
+    getColumn(token,deskId) {
+        return api.get(`column?deskId=${deskId}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+    },
+    getColumnCard(token,columnId) {
+        return api.get(`/column/card?columnId=${columnId}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+
+    }
+    ,
+    getCards(token,columnId,cardId) {
+        return api.get(`/card?cardId=${cardId}&columnId=${columnId}`,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }})

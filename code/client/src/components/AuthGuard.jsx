@@ -15,7 +15,7 @@ const AuthGuard = (props) => {
 
     const check = useCallback(() => {
         if (!localStorage.getItem("token")) {
-            navigate("/login")
+            navigate("/")
             setUser(prev => {
                 return {
                     ...prev,
@@ -40,7 +40,6 @@ const AuthGuard = (props) => {
     }, [user.isAuth]);
 
     useEffect(() => {
-        console.log(user)
         check();
     }, [user.isAuth]);
 
