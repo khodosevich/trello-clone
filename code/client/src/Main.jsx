@@ -30,6 +30,7 @@ const Main = () => {
         username: "",
         aud:"",
         isAuth: false,
+        exp: 0
     })
 
 

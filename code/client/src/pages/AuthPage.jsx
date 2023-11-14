@@ -42,12 +42,14 @@ const AuthPage = ({isExist}) => {
             localStorage.setItem("token" , JSON.stringify(data))
 
             const decode = parseToken(data.accessToken)
+            console.log(decode)
 
             setUser({
                 id: decode.sid,
                 username: decode.name,
                 aud:decode.aud,
                 isAuth: true,
+                exp: decode.exp
             })
 
             navigate("/")
@@ -66,6 +68,7 @@ const AuthPage = ({isExist}) => {
                 username: decode.name,
                 aud:decode.aud,
                 isAuth: true,
+                exp: decode.exp
             })
             navigate("/")
         }

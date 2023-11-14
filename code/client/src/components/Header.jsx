@@ -19,6 +19,7 @@ const Header = () => {
             username: "",
             aud:"",
             isAuth: false,
+            exp: 0
         })
     }
 
@@ -53,7 +54,7 @@ const Header = () => {
 
                 <Box className={classes.header_nav}>
                     <NavLink className={classes.logo} to="/">
-                        <img style={{height:"60px" , width:"100%",padding:"10px"}} src="./assets/logo.png" alt=""/>
+                        <img style={{height:"60px" , minWidth:"70px",padding:"10px"}} src="./assets/logo.png" alt=""/>
                     </NavLink>
 
                     {

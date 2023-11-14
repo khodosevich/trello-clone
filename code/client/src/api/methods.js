@@ -55,8 +55,37 @@ export const methods = {
                 'Authorization': `Bearer ${token}`
         }})
     },
+    deleteDesk(token,deskId) {
+        return api.delete(`desk`,{
+            data: {
+                deskId: deskId,
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
     getColumn(token,deskId) {
         return api.get(`column?deskId=${deskId}`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+    },
+    deleteColumn(token,columnId) {
+        return api.delete(`column`,{
+            data: {
+                columnId: columnId,
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
+    createColumn(token,data) {
+        return api.post("column",{
+            columnName: data.columnName,
+            deskId: data.deskId
+        },{
             headers: {
                 'Authorization': `Bearer ${token}`
             }})
@@ -74,6 +103,22 @@ export const methods = {
             headers: {
                 'Authorization': `Bearer ${token}`
             }})
+    },
+    createCard(token,data) {
+        return api.post("card",data,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+    },
+    deleteCard(token,cardId) {
+        return api.delete(`card`,{
+            data: {
+                cardId: cardId,
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 
 }

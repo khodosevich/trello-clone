@@ -34,6 +34,7 @@ const AuthGuard = (props) => {
                     username: user.name,
                     aud:user.aud,
                     isAuth: true,
+                    exp: user.exp
                 }
             })
         }
