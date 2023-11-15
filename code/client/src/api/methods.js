@@ -42,6 +42,16 @@ export const methods = {
                 'Authorization': `Bearer ${token}`
             }})
     },
+    deleteWorkspace(token,workspaceId) {
+        return api.delete(`workspace`,{
+            data: {
+                workSpaceId: workspaceId,
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
     createDesk(token,data) {
         return api.post("desk",data,{
             headers: {

@@ -9,7 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MailIcon from '@mui/icons-material/Mail';
 import {NavLink} from "react-router-dom";
-
+import WorkspacesIcon from '@mui/icons-material/Workspaces';
 
 
 const SideBarBoards = () => {
@@ -20,6 +20,14 @@ const SideBarBoards = () => {
         <Box sx={{padding:"50px 0"}}>
             <Box sx={{width: 240}}>
                 <List>
+                    <NavLink style={{textDecoration:"none",color:"black"}} to="myspace">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <WorkspacesIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="My spaces" />
+                        </ListItem>
+                    </NavLink>
                     <NavLink style={{textDecoration:"none",color:"black"}} to="desks">
                         <ListItem button>
                             <ListItemIcon>

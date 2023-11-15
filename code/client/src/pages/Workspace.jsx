@@ -9,6 +9,7 @@ import {methods} from "../api/methods";
 import NewWorkspace from "../components/workspace/NewWorkspace";
 import Desks from "../components/desk/Desks";
 import DeskElement from "../components/desk/DeskElement";
+import MyWorkspace from "../components/workspace/MyWorkspace";
 
 export const DeskContext = React.createContext()
 
@@ -58,6 +59,7 @@ const Workspace = () => {
                             <Route path="/desks/:id" element={<DeskElement />}/>
                             <Route path="/messages" element={<h2>messages</h2>}/>
                             <Route path="/create" element={<NewWorkspace/>}/>
+                            <Route path="/myspace" element={<MyWorkspace/>}/>
                         </Routes>
                     </DeskContext.Provider>
 
