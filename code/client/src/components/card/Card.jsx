@@ -9,15 +9,33 @@ const Card = ({cardId}) => {
 
 
     const {updateCard,setUpdateCard} = useContext(UpdateCardContext)
-    console.log(cardId)
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedTitle, setEditedTitle] = useState(cardId.title);
+
 
     const deleteCard = async () => {
         const token =JSON.parse(localStorage.getItem("token")).accessToken
-
         const response = await methods.deleteCard(token,cardId.cardId)
-        console.log(response)
+
         setUpdateCard(!updateCard)
     }
+
+
+    const handleTitleChange = (e) => {
+        setEditedTitle(e.target.value);
+    };
+
+    const handleTitleBlur = async () => {
+        setIsEditing(false);
+
+        const token =JSON.parse(localStorage.getItem("token")).accessToken
+        const response = await methods.updateCardTitle(token,cardId.cardId,editedTitle)
+        console.log(response)
+
+        setUpdateCard(!updateCard);
+    };
+
 
     return (
             <Box sx={{
@@ -27,16 +45,25 @@ const Card = ({cardId}) => {
                 alignItem:"center",
                 gap:"5px"
             }}>
-                <Box sx={{
-                    width:"90%",
-                    margin:"10px",
-                    backgroundColor:"white",
-                    borderRadius:"20px",
-                    padding:"10px",
-                    color:"black"
-                }}>
-                    {cardId.title}
-                </Box>
+                <input
+                    type="text"
+                    value={editedTitle}
+                    onChange={handleTitleChange}
+                    onBlur={handleTitleBlur}
+                    readOnly={!isEditing}
+                    onClick={() => setIsEditing(true)}
+                    style={{
+                        width: "90%",
+                        margin: "10px",
+                        backgroundColor: "white",
+                        borderRadius: "20px",
+                        padding: "10px",
+                        color: "black",
+                        cursor: "pointer",
+                        border: "none",
+                        outline: "none",
+                    }}
+                />
                 <Box sx={{
                     display:"flex",
                     justifyContent:"center",

@@ -24,8 +24,12 @@ export const methods = {
              "password": user.password
        })
     },
-     refresh(){
+     refresh(accessToken,refreshToken){
 
+         return api.post("user/refresh",{
+             accessToken: accessToken,
+             refreshToken: refreshToken
+         })
     },
     createWorkspace(token,workspace,type) {
          return api.post("workSpace",{
@@ -106,8 +110,17 @@ export const methods = {
                 'Authorization': `Bearer ${token}`
             }})
 
-    }
-    ,
+    },
+    updateColumnName(token,columnId,newName) {
+        return api.put("column/name",{
+            columnId: columnId,
+            columnName: newName
+        },{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
     getCards(token,columnId,cardId) {
         return api.get(`/card?cardId=${cardId}&columnId=${columnId}`,{
             headers: {
@@ -129,6 +142,16 @@ export const methods = {
                 'Authorization': `Bearer ${token}`
             }
         })
+    },
+    updateCardTitle(token,cardId,newTitle) {
+         return api.patch("card/title",{
+             cardId: cardId,
+             title:newTitle
+         },{
+             headers: {
+                 'Authorization': `Bearer ${token}`
+             }
+         })
     }
 
 }

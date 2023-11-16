@@ -2,6 +2,7 @@ import React, {Fragment, useCallback, useContext, useEffect, useState} from "rea
 import { UserContext } from "../Main";
 import { useNavigate } from "react-router-dom"
 import {jwtDecode} from 'jwt-decode';
+import {methods} from "../api/methods";
 
 
 const AuthGuard = (props) => {
@@ -13,7 +14,7 @@ const AuthGuard = (props) => {
 
     const [checked, setChecked] = useState(false);
 
-    const check = useCallback(() => {
+    const check = useCallback(async () => {
         if (!localStorage.getItem("token")) {
             navigate("/")
             setUser(prev => {
@@ -22,9 +23,30 @@ const AuthGuard = (props) => {
                     isAuth: false
                 }
             })
-        }
-        else {
+        } else {
             const user = jwtDecode(localStorage.getItem("token"));
+
+            const token = JSON.parse(localStorage.getItem("token"))
+
+            if (user.exp < Date.now() / 1000) {
+                const response = await methods.refresh(token.accessToken,token.refreshToken)
+                console.log("refresh " , response)
+                localStorage.setItem("token" , JSON.stringify(response.data))
+
+                const user = jwtDecode(localStorage.getItem("token"));
+
+                setChecked(true)
+                setUser(prev => {
+                    return {
+                        ...prev,
+                        id: user.sid,
+                        username: user.name,
+                        aud: user.aud,
+                        isAuth: true,
+                        exp: user.exp
+                    }
+                })
+            }
 
             setChecked(true)
             setUser(prev => {
@@ -32,7 +54,7 @@ const AuthGuard = (props) => {
                     ...prev,
                     id: user.sid,
                     username: user.name,
-                    aud:user.aud,
+                    aud: user.aud,
                     isAuth: true,
                     exp: user.exp
                 }

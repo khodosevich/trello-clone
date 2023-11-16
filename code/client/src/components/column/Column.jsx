@@ -7,6 +7,7 @@ import close from "../../img/close.png"
 import {UpdateState} from "../desk/DeskElement";
 
 import plus from "../../img/plus.png"
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 export const UpdateCardContext = React.createContext()
 
@@ -48,6 +49,17 @@ const Column = ({column}) => {
         setCreateCard(false)
     }
 
+    const [updateColumnName, setUpdateColumnName] = useState(false)
+    const [editedColumnName,setEditedColumnName] = useState(column.name)
+
+    const changeName = async () => {
+
+        console.log("change name " , editedColumnName)
+        const token =JSON.parse(localStorage.getItem("token")).accessToken
+        const res = await methods.updateColumnName(token,column.id,editedColumnName)
+
+        setUpdateColumnName(false)
+    }
 
     useEffect(() => {
         fetchCard()
@@ -57,8 +69,31 @@ const Column = ({column}) => {
     return (
         <Box>
             <Box sx={{display:"flex",justifyContent:"space-between"}}>
-                <Box>
-                    {column.name}
+                <Box sx={{display:"flex",justifyContent:"space-between" , gap:"10px"}}>
+
+                    {
+                        !updateColumnName &&  <Box>
+                            {editedColumnName}
+                        </Box>
+                    }
+
+                    {
+                        updateColumnName && <input
+                            value={editedColumnName}
+                            onChange={(e) => setEditedColumnName(e.target.value)}
+                            onBlur={changeName}
+                            style={{
+                                borderRadius:"20px",
+                                border:"0",
+                                outline:"0",
+                                padding:"5px"
+                            }}
+                            type="text"/>
+                    }
+
+                    <Box onClick={() => setUpdateColumnName(true)} sx={{cursor:"pointer"}}>
+                        <DriveFileRenameOutlineIcon/>
+                    </Box>
                 </Box>
                 <Box>
                     <img onClick={deleteColumn} style={{width:"20px",height:"20px", cursor:"pointer"}} src={close} alt="close"/>
