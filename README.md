@@ -17,7 +17,7 @@
 
 ## Технологии
 
-- *Frontend:* [React](https://github.com/khodosevich/task-manager/tree/main/code/client), Material-UI
+- *Frontend:* [React](https://github.com/khodosevich/task-manager/tree/main/code/client), Material-UI, Webpack
 - *Backend:* [C#](https://github.com/Maketfay/TaskManager/tree/dev)
 - *Database:* MySQL
 - *Authentication:* JSON Web Tokens (JWT)
