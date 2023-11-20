@@ -16,7 +16,7 @@ export const methods = {
          return api.post("user/register", {
              "userName": user.username,
              "password": user.password
-        })
+         })
     },
    login(user){
        return api.post("user/login",{
