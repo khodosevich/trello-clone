@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Project management",
+    "subtitle": "Keep tasks in order, deadlines on track, and team members aligned with Trello.",
+    "url":"./assets/action/icon1.png",
+    "color": "rgb(255, 116, 82)"
+  },
+  {
+    "id": 2,
+    "title": "Meetings",
+    "subtitle": "Empower your team meetings to be more productive, empowering, and dare we say—fun.",
+    "url":"./assets/action/icon2.png",
+    "color": "rgb(38, 132, 255)"
+  },
+  {
+    "id": 3,
+    "title": "Onboarding",
+    "subtitle": "Onboarding to a new company or project is a snap with Trello’s visual layout of to-do’s, resources, and progress tracking.",
+    "url":"./assets/action/icon3.png",
+    "color": "rgb(87, 217, 163)"
+  },
+  {
+    "id": 4,
+    "title": "Task management",
+    "subtitle": "Use Trello to track, manage, complete, and bring tasks together like the pieces of a puzzle, and make your team’s projects a cohesive success every time.",
+    "url":"./assets/action/icon4.png",
+    "color": "rgb(255, 196, 0)"
+  },
+  {
+    "id": 5,
+    "title": "Brainstorming",
+    "subtitle": "Unleash your team’s creativity and keep ideas visible, collaborative, and actionable.",
+    "url":"./assets/action/icon5.svg",
+    "color": "rgb(0, 199, 229)"
+  },
+  {
+    "id": 6,
+    "title": "Resource hub",
+    "subtitle": "Save time with a well-designed hub that helps teams find information easily and quickly.",
+    "url":"./assets/action/icon6.png",
+    "color": "rgb(249, 156, 219)"
+  }
+]
