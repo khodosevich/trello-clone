@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {methods} from "../../api/methods";
 
+import classes from "../../style/desks.module.css"
+
 const NewWorkspace = () => {
 
     const [formData, setFormData] = useState({
@@ -26,11 +28,9 @@ const NewWorkspace = () => {
         console.log(data)
     };
 
-    return (<Box style={{
-        margin:"50px 0 0 150px"
-        }}>
+    return (<Box className={classes.newWorkspace}>
             <form onSubmit={handleSubmit}>
-                <Box sx={{width:"300px"}}>
+                <Box sx={{width:"290px"}}>
                     <TextField
                         fullWidth
                         label="Название рабочего пространства"
@@ -41,7 +41,7 @@ const NewWorkspace = () => {
                         required
                     />
                 </Box>
-                <Box sx={{width:"300px"}} mt={2}>
+                <Box sx={{width:"290px"}} mt={2}>
                     <FormControl variant="outlined" fullWidth>
                         <InputLabel>Тип рабочего пространства</InputLabel>
                         <Select

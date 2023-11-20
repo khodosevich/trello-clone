@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {methods} from "../../api/methods";
 import {Box, MenuItem} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import close from "../../img/close.png";
+import CloseIcon from '@mui/icons-material/Close';
+
+import classes from '../../style/workspace.module.css'
 
 const MyWorkspace = () => {
 
@@ -28,16 +30,31 @@ const MyWorkspace = () => {
     }, [updateWorkspace]);
 
 
-    return (<Box ml={10} mt={6}>
+    return (<Box className={classes.myspace}>
             <h3>My workspaces:</h3>
             {
                 workspaces.length !== null &&
                 workspaces.map((item,index) => (
-                    <Box key={index} sx={{display:"flex" , alignItems:"center" , width:"200px" , justifyContent:"space-between"}}>
-                        <NavLink  to={"/workspace/" + item.id}>
-                            <MenuItem>{item.name}</MenuItem>
+                    <Box
+                        key={index}
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "200px",
+                            justifyContent: "space-between",
+                            padding: '8px',
+                            '&:hover': {
+                                backgroundColor: '#f5f5f5',
+                            },
+                        }}
+                    >
+                        <NavLink to={"/workspace/" + item.id} style={{ textDecoration: 'none' }}>
+                            <MenuItem sx={{ padding: 0 , color:"#1e1e1e"}}>{item.name}</MenuItem>
                         </NavLink>
-                        <img onClick={() => deleteWorkspace(item.id)} style={{width:"15px",height:"15px", cursor:"pointer"}} src={close} alt="close"/>
+                        <CloseIcon
+                            onClick={() => deleteWorkspace(item.id)}
+                            style={{ width: "15px", height: "15px", cursor: "pointer" }}
+                        />
                     </Box>
 
                 ))

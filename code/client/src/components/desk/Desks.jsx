@@ -4,6 +4,8 @@ import {methods} from "../../api/methods";
 import {DeskContext} from "../../pages/Workspace";
 import DeskItem from "./DeskItem";
 
+import classes from "../../style/desks.module.css"
+
 const Desks = () => {
 
     const {currentWorkspace,setCurrentWorkspace}  = useContext(DeskContext);
@@ -48,7 +50,7 @@ const Desks = () => {
     }, [updateDesk]);
 
     return (
-        <Box ml={10} mb={10}>
+        <Box className={classes.desks} >
             <Typography variant="h4">Boards:</Typography>
 
             <Box sx={{display:"flex",flexDirection:"row", gap:"20px" , flexWrap:"wrap"}}>
@@ -66,7 +68,7 @@ const Desks = () => {
                 {
                     createDesk &&
 
-                    <Box sx={{width:"500px", background:"#dcdcdc", borderRadius:"20px", padding:"20px" }} mt={2}>
+                    <Box sx={{minWidth:"290px",maxWidth:"500px", background:"#dcdcdc", borderRadius:"20px", padding:"20px" }} mt={2}>
                         <TextField style={{
                             marginBottom:"40px"
                         }}

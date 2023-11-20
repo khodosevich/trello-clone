@@ -2,6 +2,13 @@
 
 }
 
+@media (max-width: 1460px) {
+    .content {
+        box-sizing: border-box;
+        margin: 10px;
+    }
+}
+
 .container {
     max-width: 1440px;
     margin: 0 auto;
@@ -9,7 +16,6 @@
 
 .boadrs {
     display:flex;
-
 }
 
 .workspace_content {
@@ -21,4 +27,24 @@
     margin-top: 10px;
     width: 100%;
     color: darkblue;
+}
+
+.myspace {
+    margin-left: 100px;
+}
+
+@media (max-width: 700px) {
+
+    .boadrs {
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .myspace {
+        margin-left: 0;
+        padding:10px
+    }
+
 }

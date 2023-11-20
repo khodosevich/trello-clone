@@ -28,7 +28,6 @@
 .header_nav {
     display: flex;
     align-items: center;
-
 }
 
 .logo{
@@ -90,4 +89,22 @@
     display:flex;
     justify-content:center;
     align-items:center;
+}
+
+
+@media (max-width: 600px) {
+    .logo {
+        margin-right: 0;
+    }
+
+    .header_content {
+        height:100%;
+        flex-direction: column;
+    }
+
+
+    .header_logout {
+        height: 60px;
+    }
+
 }

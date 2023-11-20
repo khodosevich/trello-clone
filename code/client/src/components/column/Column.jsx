@@ -69,7 +69,7 @@ const Column = ({column}) => {
     return (
         <Box>
             <Box sx={{display:"flex",justifyContent:"space-between"}}>
-                <Box sx={{display:"flex",justifyContent:"space-between" , gap:"10px"}}>
+                <Box sx={{display:"flex",justifyContent:"space-between" , gap:"10px" , margin:"10px"}}>
 
                     {
                         !updateColumnName &&  <Box>

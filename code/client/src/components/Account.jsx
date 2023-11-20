@@ -8,13 +8,13 @@ const Account = () => {
 
     return (
         <Box  sx={{
-            marginTop:"20px",
-            marginLeft:"100px"
+            maxWidth:"100%",
+            margin:"10px",
         }}>
             Account data:
             <Box sx={{
                 background:"#b7b7b7",
-                width:"400px",
+                width:"100%",
                 padding:"20px",
                 borderRadius:"20px",
                 marginTop:"20px"

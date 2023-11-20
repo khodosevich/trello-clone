@@ -8,8 +8,9 @@ const NotFound = () => {
             justifyContent:"center",
             alignItems:"center",
             height:"100vh",
+            margin:"10px"
         }}>
-            <Typography variant="h1">
+            <Typography sx={{textAlign:"center"}} variant="h1">
                 404 Not found
             </Typography>
         </Box>

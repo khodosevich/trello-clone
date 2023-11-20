@@ -54,7 +54,17 @@ const Workspace = () => {
 
                         <Routes>
                             <Route path="/account" element={<Account/>}/>
-                            <Route path="/desks" element={<Desks />}/>
+                            {currentWorkspace.id ? (
+                                <>
+                                    <Route path="/desks" element={<Desks />} />
+                                    <Route path="/desks/:id" element={<DeskElement />} />
+                                </>
+                            ) : (
+                                <Route
+                                    path="/desks"
+                                    element={<h2 style={{padding:"20px"}}>Please select a workspace first</h2>}
+                                />
+                            )}
 
                             <Route path="/desks/:id" element={<DeskElement />}/>
                             <Route path="/messages" element={<h2>messages</h2>}/>

@@ -1,5 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Box, Button} from "@mui/material";
+import React, {useContext, useState} from 'react';
+import {Box} from "@mui/material";
 import {methods} from "../../api/methods";
 
 import close from "../../img/close.png"

@@ -4,6 +4,8 @@ import {Box, Button, TextField, Typography} from "@mui/material";
 import {methods} from "../../api/methods";
 import Column from "../column/Column";
 
+import classes from "../../style/desks.module.css"
+
 export const UpdateState = React.createContext()
 
 const DeskElement = () => {
@@ -44,16 +46,16 @@ const DeskElement = () => {
     }, [updateState]);
 
     return (
-        <Box ml={10}>
+        <Box className={classes.desks_column}>
             <Typography variant="h6">Columns:</Typography>
-            <Box sx={{display:"flex", flexDirection:"row", gap:"20px", flexWrap:"wrap"}}>
+            <Box sx={{display:"flex", flexDirection:"row", gap:"20px", flexWrap:"wrap",justifyContent:"center",alignItem:"center"}}>
                 {
                     columns.map((item,index) => (
                             <Box key={index} sx={{
                                 background:"#836ed0",
-                                width:"350px",
+                                width:"310px",
                                 color:"white",
-                                padding:"20px 30px",
+                                padding:"20px 25px",
                                 height:"100%"
                             }} >
                                 <UpdateState.Provider value={{updateState,setUpdateState}}>
@@ -70,7 +72,7 @@ const DeskElement = () => {
 
 
                 {
-                    createColumn &&  <Box sx={{width:"500px", background:"#dcdcdc", borderRadius:"20px", padding:"20px" }} mt={2}>
+                    createColumn &&  <Box sx={{minWidth:"290px",maxWidth:"500px", background:"#dcdcdc", borderRadius:"20px", padding:"20px" }} mt={2}>
                         <TextField
                             fullWidth
                             onChange={(e)=> setColumnData({ ...columnData,  columnName:e.target.value })}

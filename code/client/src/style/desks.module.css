@@ -1,0 +1,28 @@
+.desks {
+    margin-left: 100px;
+}
+
+.desks_column {
+    margin-left: 100px;
+}
+
+.newWorkspace {
+    margin: 50px 0 0 150px;
+}
+
+@media (max-width: 600px) {
+
+    .desks {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .desks_column {
+        margin-left: 0;
+    }
+
+    .newWorkspace {
+        margin: 10px;
+    }
+
+}

@@ -54,7 +54,7 @@ const Header = () => {
 
                 <Box className={classes.header_nav}>
                     <NavLink className={classes.logo} to="/">
-                        <img style={{height:"60px" , minWidth:"70px",padding:"10px"}} src="./assets/logo.png" alt=""/>
+                        <img style={{height:"60px" , minWidth:"100px", objectFit:"contain"}} src="./assets/logo.png" alt=""/>
                     </NavLink>
 
                     {
@@ -84,9 +84,9 @@ const Header = () => {
                                     }
                                 </Menu>
                             </ListItem>
-                            <ListItem>
-                                    Favorites
-                            </ListItem>
+                            {/*<ListItem>*/}
+                            {/*        Favorites*/}
+                            {/*</ListItem>*/}
                         </List>
 
                     }
