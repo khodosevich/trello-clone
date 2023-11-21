@@ -19,6 +19,12 @@ const Workspace = () => {
 
     const [currentWorkspace, setCurrentWorkspace] = useState({name:"dont used workspace"})
 
+    const [currentDeskData,setCurrentDeskData] = useState({
+        name: "",
+        visibilityTypeCode: "",
+        workSpaceId: ""
+    })
+
     const checkWorkspace = async () => {
 
         const current = location.pathname.substring(11)
@@ -49,8 +55,9 @@ const Workspace = () => {
                 </Box>
                 <Box className={classes.boadrs}>
 
-                    <DeskContext.Provider value={{currentWorkspace,setCurrentWorkspace}}>
+                    <DeskContext.Provider value={{currentWorkspace,setCurrentWorkspace,currentDeskData,setCurrentDeskData}}>
                         <SideBarBoards/>
+
 
                         <Routes>
                             <Route path="/account" element={<Account/>}/>
@@ -66,7 +73,6 @@ const Workspace = () => {
                                 />
                             )}
 
-                            <Route path="/desks/:id" element={<DeskElement />}/>
                             <Route path="/messages" element={<h2>messages</h2>}/>
                             <Route path="/create" element={<NewWorkspace/>}/>
                             <Route path="/myspace" element={<MyWorkspace/>}/>

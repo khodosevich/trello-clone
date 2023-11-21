@@ -4,6 +4,8 @@ import {methods} from "../../api/methods";
 
 import close from "../../img/close.png"
 import {UpdateCardContext} from "../column/Column";
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 const Card = ({cardId}) => {
 
@@ -69,7 +71,8 @@ const Card = ({cardId}) => {
                     justifyContent:"center",
                     alignItem:"center",
                 }}>
-                    <img onClick={deleteCard} style={{width:"15px",height:"20px",marginTop:"20px",objectFit:"contain",cursor:"pointer"}} src={close} alt="delete"/>
+                    <ClearIcon onClick={deleteCard} style={{width:"15px",height:"20px",marginTop:"20px",objectFit:"contain",cursor:"pointer"}}/>
+                    {/*<img onClick={deleteCard} style={{width:"15px",height:"20px",marginTop:"20px",objectFit:"contain",cursor:"pointer"}} src={close} alt="delete"/>*/}
                 </Box>
             </Box>
     );

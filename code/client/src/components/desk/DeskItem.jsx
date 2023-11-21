@@ -10,7 +10,6 @@ const DeskItem = ({desk}) => {
     const deleteDesk = async () => {
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.deleteDesk(token,desk.deskId)
-        console.log(data)
     }
 
     return (

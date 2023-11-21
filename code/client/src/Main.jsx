@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import Home from "./pages/Home";
-import {Box} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {Route, Routes, useLocation} from "react-router-dom";
 import NotFound from "./pages/NotFound";
 
@@ -15,15 +15,6 @@ export const UserContext = React.createContext()
 
 const Main = () => {
 
-    const logout = () => {
-        localStorage.removeItem("token")
-        setUser({
-            id: 0,
-            username: "",
-            aud:"",
-            isAuth: false,
-        })
-    }
 
     const [user, setUser] = useState({
         id: 0,
@@ -49,7 +40,12 @@ const Main = () => {
                             <Route path="/register" element={<AuthPage isExist={false}/>}/>
                             <Route path="*" element={<NotFound/>}/>
 
-                            <Route path="/workspace/*" element={<Workspace />} />
+                            {
+                                user.isAuth
+                                    ? <Route path="/workspace/*" element={<Workspace />} />
+                                    : <Route path="/workspace/*" element={<NotFound/>} />
+                            }
+
 
                         </Routes>
                     </AuthGuard>

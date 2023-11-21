@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import {methods} from "../../api/methods";
 import Column from "../column/Column";
+import DeskSideBar from "./DeskSideBar";
+
 
 import classes from "../../style/desks.module.css"
 
@@ -30,7 +32,6 @@ const DeskElement = () => {
     }
 
     const createNewColumn = async () => {
-
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const response = await methods.createColumn(token,columnData)
         console.log(response)
@@ -47,16 +48,20 @@ const DeskElement = () => {
 
     return (
         <Box className={classes.desks_column}>
+
+            <DeskSideBar id={id}/>
+
             <Typography variant="h6">Columns:</Typography>
             <Box sx={{display:"flex", flexDirection:"row", gap:"20px", flexWrap:"wrap",justifyContent:"center",alignItem:"center"}}>
                 {
                     columns.map((item,index) => (
                             <Box key={index} sx={{
-                                background:"#836ed0",
+                                background:"black",
                                 width:"310px",
                                 color:"white",
                                 padding:"20px 25px",
-                                height:"100%"
+                                height:"100%",
+                                borderRadius:"20px"
                             }} >
                                 <UpdateState.Provider value={{updateState,setUpdateState}}>
                                     <Column column={item}/>

@@ -8,6 +8,7 @@ import {UpdateState} from "../desk/DeskElement";
 
 import plus from "../../img/plus.png"
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export const UpdateCardContext = React.createContext()
 
@@ -96,15 +97,15 @@ const Column = ({column}) => {
                     </Box>
                 </Box>
                 <Box>
-                    <img onClick={deleteColumn} style={{width:"20px",height:"20px", cursor:"pointer"}} src={close} alt="close"/>
+                    <ClearIcon onClick={deleteColumn} style={{width:"20px",height:"20px", cursor:"pointer"}}/>
                 </Box>
             </Box>
 
             <Box>
                 {
                     cardId.map((item,index) => (
-                        <UpdateCardContext.Provider value={{updateCard,setUpdateCard}}>
-                            <Card key={index} cardId={item}/>
+                        <UpdateCardContext.Provider key={index} value={{updateCard,setUpdateCard}}>
+                            <Card cardId={item}/>
                         </UpdateCardContext.Provider>
                     ))
                 }

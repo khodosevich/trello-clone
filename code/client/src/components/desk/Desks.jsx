@@ -6,9 +6,11 @@ import DeskItem from "./DeskItem";
 
 import classes from "../../style/desks.module.css"
 
+
 const Desks = () => {
 
     const {currentWorkspace,setCurrentWorkspace}  = useContext(DeskContext);
+    const {currentDeskData,setCurrentDeskData} = useContext(DeskContext)
 
     const [deskItems, setDeskItems] = useState([])
 
@@ -39,7 +41,7 @@ const Desks = () => {
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.getDesk(token,currentWorkspace.id);
         setDeskItems(data.data)
-        console.log(data)
+        setCurrentDeskData(data.data)
     }
 
 
@@ -53,13 +55,14 @@ const Desks = () => {
         <Box className={classes.desks} >
             <Typography variant="h4">Boards:</Typography>
 
-            <Box sx={{display:"flex",flexDirection:"row", gap:"20px" , flexWrap:"wrap"}}>
+           <Box sx={{display:"flex",flexDirection:"row", gap:"20px" , flexWrap:"wrap"}}>
                 {
                     deskItems.map((item,index) => (
-                            <DeskItem key={index} desk={item}/>
+                        <DeskItem key={index} desk={item}/>
                     ))
                 }
             </Box>
+
             <Box mt={5}>
                 {
                     !createDesk &&  <Button onClick={ () => setCreateDesk(true)} variant="contained">Create a desk</Button>
