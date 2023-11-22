@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Box} from "@mui/material";
 
 import classes from "../style/workspace.module.css"
@@ -10,12 +10,15 @@ import NewWorkspace from "../components/workspace/NewWorkspace";
 import Desks from "../components/desk/Desks";
 import DeskElement from "../components/desk/DeskElement";
 import MyWorkspace from "../components/workspace/MyWorkspace";
+import {UserContext} from "../Main";
+import ChooseWorkspace from "../components/workspace/ChooseWorkspace";
 
 export const DeskContext = React.createContext()
 
 const Workspace = () => {
 
     const location = useLocation()
+    const {setIsFetching} = useContext(UserContext)
 
     const [currentWorkspace, setCurrentWorkspace] = useState({name:"dont used workspace"})
 
@@ -29,9 +32,11 @@ const Workspace = () => {
 
         const current = location.pathname.substring(11)
 
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.getWorkSpaces(token)
         const workspaces = await data.data
+        setIsFetching(false)
 
         for (let i = 0; i < workspaces.length; i++) {
             if(workspaces[i].id === current) {
@@ -68,8 +73,8 @@ const Workspace = () => {
                                 </>
                             ) : (
                                 <Route
-                                    path="/desks"
-                                    element={<h2 style={{padding:"20px"}}>Please select a workspace first</h2>}
+                                    path=":id/desks"
+                                    element={<ChooseWorkspace/>}
                                 />
                             )}
 

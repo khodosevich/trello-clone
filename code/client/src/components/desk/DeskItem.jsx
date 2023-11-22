@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Box} from "@mui/material";
 import {NavLink} from "react-router-dom";
 
 import {methods} from "../../api/methods";
 import ClearIcon from '@mui/icons-material/Clear';
+import {UserContext} from "../../Main";
 
 const DeskItem = ({desk}) => {
 
+    const {setIsFetching} = useContext(UserContext)
+
     const deleteDesk = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.deleteDesk(token,desk.deskId)
+        setIsFetching(false)
     }
 
     return (

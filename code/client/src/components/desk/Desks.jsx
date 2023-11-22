@@ -5,12 +5,13 @@ import {DeskContext} from "../../pages/Workspace";
 import DeskItem from "./DeskItem";
 
 import classes from "../../style/desks.module.css"
+import {UserContext} from "../../Main";
 
 
 const Desks = () => {
 
-    const {currentWorkspace,setCurrentWorkspace}  = useContext(DeskContext);
-    const {currentDeskData,setCurrentDeskData} = useContext(DeskContext)
+    const {currentWorkspace,setCurrentDeskData}  = useContext(DeskContext);
+    const {setIsFetching} = useContext(UserContext)
 
     const [deskItems, setDeskItems] = useState([])
 
@@ -29,8 +30,10 @@ const Desks = () => {
     };
 
     const newDeskHandler = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const response = await methods.createDesk(token,deskData)
+        setIsFetching(false)
 
         setCreateDesk(false)
         setUpdateDesk(true)
@@ -38,8 +41,10 @@ const Desks = () => {
     }
 
     const fetchDesk =  async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.getDesk(token,currentWorkspace.id);
+        setIsFetching(false)
         setDeskItems(data.data)
         setCurrentDeskData(data.data)
     }

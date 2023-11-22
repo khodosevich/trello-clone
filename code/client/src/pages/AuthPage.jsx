@@ -8,7 +8,7 @@ import {parseToken} from "../api/parseToken";
 
 const AuthPage = ({isExist}) => {
 
-    const {user,setUser} = useContext(UserContext)
+    const {user,setUser,isFetching, setIsFetching} = useContext(UserContext)
     const navigate = useNavigate()
 
     const location = useLocation();
@@ -37,6 +37,7 @@ const AuthPage = ({isExist}) => {
 
         if(isExist) {
             console.log("login")
+            setIsFetching(true)
             const response = await methods.login(creds)
             const data = await response.data
             localStorage.setItem("token" , JSON.stringify(data))
@@ -52,10 +53,12 @@ const AuthPage = ({isExist}) => {
                 exp: decode.exp
             })
 
-            navigate("/")
+            setIsFetching(false)
+            navigate("/workspace/myspace")
 
         }else {
             console.log("register")
+            setIsFetching(true)
             const response = await methods.register(creds)
             const data = await response.data
             console.log(data)
@@ -70,7 +73,8 @@ const AuthPage = ({isExist}) => {
                 isAuth: true,
                 exp: decode.exp
             })
-            navigate("/")
+            setIsFetching(false)
+            navigate("/workspace/myspace")
         }
     }
 

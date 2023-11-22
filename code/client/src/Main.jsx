@@ -10,6 +10,7 @@ import AuthPage from "./pages/AuthPage";
 import Footer from "./components/Footer";
 import Workspace from "./pages/Workspace";
 import AuthGuard from "./components/AuthGuard";
+import CircularIndeterminate from "./components/CircularIndeterminate";
 
 export const UserContext = React.createContext()
 
@@ -24,13 +25,18 @@ const Main = () => {
         exp: 0
     })
 
+    const [isFetching, setIsFetching] = useState(false)
 
     const location = useLocation()
     const renderHeaderAndFooter = location.pathname !== "/register" &&  location.pathname !== "/login"
 
     return (
         <Box>
-            <UserContext.Provider value={{user,setUser}}>
+            {
+                isFetching && <CircularIndeterminate/>
+            }
+
+            <UserContext.Provider value={{user,setUser,isFetching, setIsFetching}}>
                 {renderHeaderAndFooter && <Header/>}
                 <Box style={{ minHeight:"80vh"}}>
                     <AuthGuard>

@@ -8,25 +8,30 @@ import {UpdateState} from "../desk/DeskElement";
 import plus from "../../img/plus.png"
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import ClearIcon from '@mui/icons-material/Clear';
+import {UserContext} from "../../Main";
 
 export const UpdateCardContext = React.createContext()
 
 const Column = ({column}) => {
 
     const {updateState,setUpdateState} = useContext(UpdateState)
+    const {setIsFetching} = useContext(UserContext)
 
     const [cardId, setCardId] = useState([])
     const fetchCard = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.getColumnCard(token,column.id)
-        console.log(data.data)
+        setIsFetching(false)
         setCardId(data.data)
     }
 
     const deleteColumn = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.deleteColumn(token,column.id)
-        console.log(data)
+        setIsFetching(false)
+
         setUpdateState(!updateState)
     }
 
@@ -42,9 +47,12 @@ const Column = ({column}) => {
     const [updateCard, setUpdateCard] = useState(false)
 
     const newCardHandler = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const response = await methods.createCard(token,cardData)
-        console.log(response)
+
+        setIsFetching(false)
+
         setUpdateCard(!updateCard)
         setCreateCard(false)
     }
@@ -54,16 +62,16 @@ const Column = ({column}) => {
 
     const changeName = async () => {
 
-        console.log("change name " , editedColumnName)
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const res = await methods.updateColumnName(token,column.id,editedColumnName)
+        setIsFetching(false)
 
         setUpdateColumnName(false)
     }
 
     useEffect(() => {
         fetchCard()
-        console.log(cardId)
     }, [updateCard]);
 
     return (

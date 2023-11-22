@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import {methods} from "../../api/methods";
@@ -7,10 +7,13 @@ import DeskSideBar from "./DeskSideBar";
 
 
 import classes from "../../style/desks.module.css"
+import {UserContext} from "../../Main";
 
 export const UpdateState = React.createContext()
 
 const DeskElement = () => {
+
+    const {setIsFetching} = useContext(UserContext)
 
     const {id,deskId} = useParams()
 
@@ -26,15 +29,18 @@ const DeskElement = () => {
     const [updateState, setUpdateState] = useState(false)
 
     const fetchColumn = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const data = await methods.getColumn(token,deskId)
+        setIsFetching(false)
         setColumns(data.data)
     }
 
     const createNewColumn = async () => {
+        setIsFetching(true)
         const token =JSON.parse(localStorage.getItem("token")).accessToken
         const response = await methods.createColumn(token,columnData)
-        console.log(response)
+        setIsFetching(false)
         setCreateColumn(false)
         setUpdateState(prevState => !prevState)
     }
