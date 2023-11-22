@@ -12,7 +12,7 @@ export const UpdateState = React.createContext()
 
 const DeskElement = () => {
 
-    const {id} = useParams()
+    const {id,deskId} = useParams()
 
     const [columns, setColumns] = useState([])
 
@@ -27,7 +27,7 @@ const DeskElement = () => {
 
     const fetchColumn = async () => {
         const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const data = await methods.getColumn(token,id)
+        const data = await methods.getColumn(token,deskId)
         setColumns(data.data)
     }
 
@@ -43,13 +43,13 @@ const DeskElement = () => {
 
     useEffect(() => {
         fetchColumn()
-        setColumnData({...columnData, deskId:id})
+        setColumnData({...columnData, deskId:deskId})
     }, [updateState]);
 
     return (
         <Box className={classes.desks_column}>
 
-            <DeskSideBar id={id}/>
+            <DeskSideBar id={deskId}/>
 
             <Typography variant="h6">Columns:</Typography>
             <Box sx={{display:"flex", flexDirection:"row", gap:"20px", flexWrap:"wrap",justifyContent:"center",alignItem:"center"}}>

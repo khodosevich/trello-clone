@@ -2,8 +2,8 @@ import React from 'react';
 import {Box} from "@mui/material";
 import {NavLink} from "react-router-dom";
 
-import close from "../../img/close.png"
 import {methods} from "../../api/methods";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const DeskItem = ({desk}) => {
 
@@ -15,25 +15,33 @@ const DeskItem = ({desk}) => {
     return (
 
             <Box sx={{
-                background:"#b2b2b2",
-                width:"250px",
-                height:"50px",
-                borderRadius:"20px",
                 display:"flex",
-                justifyContent:"space-between",
                 alignItems:"center",
-                padding:"5px 10px"
+                gap:"2px"
             }}>
-                <NavLink to={`${desk.deskId}`}>
-                    <Box>
-                        {desk.deskName}
-                    </Box>
-                </NavLink>
+                <Box>
+                    <NavLink style={{textDecoration:"none",  color:"white"}} to={`${desk.deskId}`}>
+                        <Box sx={{
+                            background:"#000000",
+                            width:"250px",
+                            height:"50px",
+                            borderRadius:"20px",
+                            display:"flex",
+                            justifyContent:"space-between",
+                            alignItems:"center",
+                            padding:"5px 10px",
+                        }}>
+                            {desk.deskName}
+                        </Box>
+                    </NavLink>
+                </Box>
                 <Box onClick={deleteDesk} style={{cursor:"pointer"}}>
-                    <img style={{
+                    <ClearIcon
+                        style={{
                         width:"20px",
-                        height:"20px"
-                    }} src={close} alt="close"/>
+                        height:"20px",
+                    }}
+                    />
                 </Box>
             </Box>
     );

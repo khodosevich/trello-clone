@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import {Box, Button} from "@mui/material";
 import List from '@mui/material/List';
@@ -10,10 +10,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import MailIcon from '@mui/icons-material/Mail';
 import {NavLink} from "react-router-dom";
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
+import {DeskContext} from "../pages/Workspace";
 
 
 const SideBarBoards = () => {
 
+    const {currentWorkspace} = useContext(DeskContext)
 
 
     return (
@@ -28,7 +30,7 @@ const SideBarBoards = () => {
                             <ListItemText primary="My spaces" />
                         </ListItem>
                     </NavLink>
-                    <NavLink style={{textDecoration:"none",color:"black"}} to="desks">
+                    <NavLink style={{textDecoration:"none",color:"black"}}  to={`/workspace/${currentWorkspace.id}/desks`}>
                         <ListItem button>
                             <ListItemIcon>
                                 <DashboardIcon />

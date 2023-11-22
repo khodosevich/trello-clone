@@ -77,8 +77,8 @@ const Header = () => {
                                 >
                                     {
                                         workspaces.length !== null &&
-                                        workspaces.map((item,index) => (<NavLink key={index} to={"/workspace/" + item.id}>
-                                                <MenuItem  onClick={handleClose}>{item.name}</MenuItem>
+                                        workspaces.map((item,index) => (<NavLink key={index} style={{textDecoration:"none"}} to={"/workspace/" + item.id}>
+                                                <MenuItem sx={{color:"black",textDecoration:"none"}}  onClick={handleClose}>{item.name}</MenuItem>
                                         </NavLink>
                                         ))
                                     }

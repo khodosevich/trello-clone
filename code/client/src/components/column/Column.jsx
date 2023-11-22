@@ -3,7 +3,6 @@ import {Box, Button} from "@mui/material";
 import {methods} from "../../api/methods";
 import Card from "../card/Card";
 
-import close from "../../img/close.png"
 import {UpdateState} from "../desk/DeskElement";
 
 import plus from "../../img/plus.png"

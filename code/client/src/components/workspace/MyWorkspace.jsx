@@ -31,35 +31,49 @@ const MyWorkspace = () => {
 
 
     return (<Box className={classes.myspace}>
-            <h3>My workspaces:</h3>
-            {
-                workspaces.length !== null &&
-                workspaces.map((item,index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            width: "200px",
-                            justifyContent: "space-between",
-                            padding: '8px',
-                            '&:hover': {
-                                backgroundColor: '#f5f5f5',
-                            },
-                        }}
-                    >
-                        <NavLink to={"/workspace/" + item.id} style={{ textDecoration: 'none' }}>
-                            <MenuItem sx={{ padding: 0 , color:"#1e1e1e"}}>{item.name}</MenuItem>
-                        </NavLink>
-                        <CloseIcon
-                            onClick={() => deleteWorkspace(item.id)}
-                            style={{ width: "15px", height: "15px", cursor: "pointer" }}
-                        />
-                    </Box>
+                <h3>My workspaces:</h3>
 
-                ))
-            }
+                <Box>
 
+                    {
+                        workspaces.length !== null &&
+                        workspaces.map((item,index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap:"10px"
+                            }}
+                            >
+                                <Box>
+                                    <NavLink to={"/workspace/" + item.id} style={{ textDecoration: 'none' }}>
+                                        <Box
+                                            sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            width: "200px",
+                                            justifyContent: "space-between",
+                                            padding: '8px',
+                                            '&:hover': {
+                                                backgroundColor: '#f5f5f5',
+                                            },
+                                        }}>
+                                            <MenuItem sx={{ padding: 0 , color:"#1e1e1e"}}>{item.name}</MenuItem>
+                                        </Box>
+                                    </NavLink>
+                                </Box>
+                                <Box>
+                                    <CloseIcon
+                                        onClick={() => deleteWorkspace(item.id)}
+                                        style={{ width: "15px", height: "15px", cursor: "pointer" }}
+                                    />
+                                </Box>
+                            </Box>
+                                ))
+                    }
+
+                </Box>
         </Box>
     );
 };

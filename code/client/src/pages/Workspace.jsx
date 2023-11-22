@@ -63,8 +63,8 @@ const Workspace = () => {
                             <Route path="/account" element={<Account/>}/>
                             {currentWorkspace.id ? (
                                 <>
-                                    <Route path="/desks" element={<Desks />} />
-                                    <Route path="/desks/:id" element={<DeskElement />} />
+                                    <Route path=":id/desks" element={<Desks />} />
+                                    <Route path=":id/desks/:deskId" element={<DeskElement />} />
                                 </>
                             ) : (
                                 <Route
