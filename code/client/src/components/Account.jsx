@@ -4,7 +4,7 @@ import {UserContext} from "../Main";
 
 const Account = () => {
 
-    const {user,setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
 
     return (
         <Box  sx={{

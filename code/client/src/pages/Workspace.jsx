@@ -11,7 +11,6 @@ import Desks from "../components/desk/Desks";
 import DeskElement from "../components/desk/DeskElement";
 import MyWorkspace from "../components/workspace/MyWorkspace";
 import {UserContext} from "../Main";
-import ChooseWorkspace from "../components/workspace/ChooseWorkspace";
 
 export const DeskContext = React.createContext()
 
@@ -32,16 +31,22 @@ const Workspace = () => {
 
         const current = location.pathname.substring(11)
 
-        setIsFetching(true)
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const data = await methods.getWorkSpaces(token)
-        const workspaces = await data.data
-        setIsFetching(false)
+        try {
+            setIsFetching(true)
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            const data = await methods.getWorkSpaces(token)
+            const workspaces = await data.data
 
-        for (let i = 0; i < workspaces.length; i++) {
-            if(workspaces[i].id === current) {
-                setCurrentWorkspace(workspaces[i])
+
+            for (let i = 0; i < workspaces.length; i++) {
+                if(workspaces[i].id === current) {
+                    setCurrentWorkspace(workspaces[i])
+                }
             }
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setIsFetching(false)
         }
     }
 
@@ -66,17 +71,8 @@ const Workspace = () => {
 
                         <Routes>
                             <Route path="/account" element={<Account/>}/>
-                            {currentWorkspace.id ? (
-                                <>
-                                    <Route path=":id/desks" element={<Desks />} />
-                                    <Route path=":id/desks/:deskId" element={<DeskElement />} />
-                                </>
-                            ) : (
-                                <Route
-                                    path=":id/desks"
-                                    element={<ChooseWorkspace/>}
-                                />
-                            )}
+                            <Route path=":id" element={<Desks />} />
+                            <Route path=":id/:deskId" element={<DeskElement />} />
 
                             <Route path="/messages" element={<h2>messages</h2>}/>
                             <Route path="/create" element={<NewWorkspace/>}/>

@@ -5,16 +5,29 @@ import {NavLink} from "react-router-dom";
 import {methods} from "../../api/methods";
 import ClearIcon from '@mui/icons-material/Clear';
 import {UserContext} from "../../Main";
+import {DeskContext} from "../../pages/Workspace";
 
-const DeskItem = ({desk}) => {
-
+const DeskItem = ({desk,setDesks}) => {
     const {setIsFetching} = useContext(UserContext)
+    const {setCurrentDeskData} = useContext(DeskContext)
 
     const deleteDesk = async () => {
-        setIsFetching(true)
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const data = await methods.deleteDesk(token,desk.deskId)
-        setIsFetching(false)
+        try {
+            setIsFetching(true)
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            await methods.deleteDesk(token,desk.deskId)
+
+            setDesks( prev => prev.filter((item) => item.deskId !== desk.deskId ))
+
+        } catch (error) {
+            console.log(error)
+        }finally {
+            setIsFetching(false)
+        }
+    }
+
+    const currentDeskData = () => {
+        setCurrentDeskData(desk)
     }
 
     return (
@@ -25,7 +38,7 @@ const DeskItem = ({desk}) => {
                 gap:"2px"
             }}>
                 <Box>
-                    <NavLink style={{textDecoration:"none",  color:"white"}} to={`${desk.deskId}`}>
+                    <NavLink onClick={currentDeskData} style={{textDecoration:"none",  color:"white"}} to={`${desk.deskId}`}>
                         <Box sx={{
                             background:"#000000",
                             width:"250px",

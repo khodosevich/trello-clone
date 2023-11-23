@@ -16,10 +16,10 @@ const DeskSideBar = () => {
 
     const navigate = useNavigate()
 
-    const {currentDeskData,setCurrentDeskData} = useContext(DeskContext)
+    const {currentDeskData} = useContext(DeskContext)
 
     const getIcon = () => {
-        switch (currentDeskData[0].visibilityTypeCode) {
+        switch (currentDeskData.visibilityTypeCode) {
             case "Private":
                 return <LockIcon />;
             case "Public":
@@ -32,21 +32,24 @@ const DeskSideBar = () => {
     };
 
     const handleDelete = async () => {
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const data = await methods.deleteDesk(token,currentDeskData[0].deskId)
-        console.log(data)
-        navigate("/workspace")
+        try {
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            const data = await methods.deleteDesk(token,currentDeskData.deskId)
+            navigate("/workspace")
+        }catch (e) {
+            console.log(e)
+        }
     }
 
     return (
         <Box className={classes.desk_sidebar}>
 
             <Typography sx={{cursor:"pointer"}} variant={"h6"}>
-                {currentDeskData[0].deskName}
+                {currentDeskData.deskName}
             </Typography>
 
             <Box className={classes.typeDesk}>
-                {getIcon()} {currentDeskData[0].visibilityTypeCode}
+                {getIcon()} {currentDeskData.visibilityTypeCode}
             </Box>
 
             <Box>

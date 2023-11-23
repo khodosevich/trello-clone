@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {methods} from "../../api/methods";
-import {Box, MenuItem} from "@mui/material";
+import {Box, MenuItem, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -31,7 +31,7 @@ const MyWorkspace = () => {
 
 
     return (<Box className={classes.myspace}>
-                <h3>My workspaces:</h3>
+                <Typography mb={2} variant={"h3"}>My workspaces:</Typography>
 
                 <Box>
 

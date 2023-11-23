@@ -3,7 +3,7 @@ import {Box, CircularProgress} from "@mui/material";
 
 const CircularIndeterminate = () => {
     return (
-        <Box sx={{height:"100vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <Box sx={{height:"100%",display:"flex",justifyContent:"center",alignItems:"center",position:"absolute", top: 0,width:"100%",zIndex:"100",background:"black"}}>
             <CircularProgress style={{ height:"200px", width:"200px" }} />
         </Box>
     );

@@ -6,7 +6,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import MailIcon from '@mui/icons-material/Mail';
 import {NavLink} from "react-router-dom";
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
@@ -28,14 +27,6 @@ const SideBarBoards = () => {
                                 <WorkspacesIcon />
                             </ListItemIcon>
                             <ListItemText primary="My spaces" />
-                        </ListItem>
-                    </NavLink>
-                    <NavLink style={{textDecoration:"none",color:"black"}}  to={`/workspace/${currentWorkspace.id}/desks`}>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <DashboardIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Desks" />
                         </ListItem>
                     </NavLink>
                     <NavLink style={{textDecoration:"none",color:"black"}} to="messages">

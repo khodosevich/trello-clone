@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import Home from "./pages/Home";
-import {Box, Typography} from "@mui/material";
+import {Box} from "@mui/material";
 import {Route, Routes, useLocation} from "react-router-dom";
 import NotFound from "./pages/NotFound";
 

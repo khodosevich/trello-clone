@@ -1,118 +1,56 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
+import React, {Fragment, useContext, useEffect, useState} from 'react';
+import {Box, Typography} from "@mui/material";
 import {methods} from "../../api/methods";
-import {DeskContext} from "../../pages/Workspace";
-import DeskItem from "./DeskItem";
 
 import classes from "../../style/desks.module.css"
 import {UserContext} from "../../Main";
+import CreateDesk from "./CreateDesk";
+import DeskList from "./DeskList";
+import { useParams } from 'react-router-dom';
 
 
 const Desks = () => {
 
-    const {currentWorkspace,setCurrentDeskData}  = useContext(DeskContext);
     const {setIsFetching} = useContext(UserContext)
 
-    const [deskItems, setDeskItems] = useState([])
+    const {id} = useParams()
 
-    const [deskData, setDeskData] = useState({
-        name: "",
-        visibilityTypeCode: "Public",
-        workSpaceId: ""
-    });
-
-    const [updateDesk, setUpdateDesk] = useState(false)
-    const [createDesk, setCreateDesk] = useState(false)
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setDeskData({ ...deskData, [name]: value });
-    };
-
-    const newDeskHandler = async () => {
-        setIsFetching(true)
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const response = await methods.createDesk(token,deskData)
-        setIsFetching(false)
-
-        setCreateDesk(false)
-        setUpdateDesk(true)
-
-    }
+    const [desks, setDesks] = useState([])
 
     const fetchDesk =  async () => {
-        setIsFetching(true)
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const data = await methods.getDesk(token,currentWorkspace.id);
-        setIsFetching(false)
-        setDeskItems(data.data)
-        setCurrentDeskData(data.data)
+
+        try {
+            setIsFetching(true)
+
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            const data = await methods.getDesk(token,id);
+    
+            setDesks(data.data)
+        }
+        catch(e) {
+            console.error(e)
+        }
+        finally {
+            setIsFetching(false)
+        }
+      
     }
-
-
 
     useEffect(() => {
         fetchDesk()
-        setDeskData({ ...deskData, workSpaceId: currentWorkspace.id });
-    }, [updateDesk]);
+    }, []);
 
     return (
         <Box className={classes.desks} >
-            <Typography variant="h4">Boards:</Typography>
+            <Typography mb={2} variant="h3">Desks:</Typography>
 
-           <Box sx={{display:"flex",flexDirection:"row", gap:"20px" , flexWrap:"wrap"}}>
-                {
-                    deskItems.map((item,index) => (
-                        <DeskItem key={index} desk={item}/>
-                    ))
-                }
-            </Box>
+            <Fragment>
+                    <DeskList desks={desks} setDesks={setDesks} />
 
-            <Box mt={5}>
-                {
-                    !createDesk &&  <Button onClick={ () => setCreateDesk(true)} variant="contained">Create a desk</Button>
-                }
-
-                {
-                    createDesk &&
-
-                    <Box sx={{minWidth:"290px",maxWidth:"500px", background:"#dcdcdc", borderRadius:"20px", padding:"20px" }} mt={2}>
-                        <TextField style={{
-                            marginBottom:"40px"
-                        }}
-                                   fullWidth
-                                   onChange={(e)=>    setDeskData({ ...deskData,  name:e.target.value })}
-                                   id="outlined-basic"
-                                   label="Desk name"
-                                   variant="outlined"
-                        />
-                        <FormControl variant="outlined" fullWidth>
-                            <InputLabel>Тип рабочего пространства</InputLabel>
-                            <Select
-                                label="Тип рабочего пространства"
-                                name="visibilityTypeCode"
-                                onChange={handleChange}
-                                value={deskData.visibilityTypeCode}
-                                required
-                            >
-                                <MenuItem value="Public">Открытое</MenuItem>
-                                <MenuItem value="Private">Закрытое</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Box sx={{
-                            display:"flex",
-                            gap:"20px",
-                            marginTop:"40px"
-                        }}>
-                            <Button onClick={newDeskHandler} variant="contained">Create</Button>
-                            <Button onClick={ () => setCreateDesk(false)} variant="outlined" color="error">
-                                Cancel
-                            </Button>
-                        </Box>
-
-                    </Box>
-                }
-            </Box>
+                    <CreateDesk setDesks={setDesks} workspaceId={id}/>
+            </Fragment>
+            
+        
         </Box>
     );
 };

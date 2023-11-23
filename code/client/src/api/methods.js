@@ -70,6 +70,9 @@ export const methods = {
         }})
     },
     deleteDesk(token,deskId) {
+
+        console.log(deskId)
+
         return api.delete(`desk`,{
             data: {
                 deskId: deskId,

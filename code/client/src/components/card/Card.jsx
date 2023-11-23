@@ -1,26 +1,29 @@
 import React, {useContext, useState} from 'react';
 import {Box} from "@mui/material";
 import {methods} from "../../api/methods";
-
-import close from "../../img/close.png"
-import {UpdateCardContext} from "../column/Column";
 import ClearIcon from '@mui/icons-material/Clear';
+import {UserContext} from "../../Main";
 
 
-const Card = ({cardId}) => {
-
-
-    const {updateCard,setUpdateCard} = useContext(UpdateCardContext)
-
+const Card = ({cardId,setCardsIds}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(cardId.title);
 
+    const {setIsFetching} = useContext(UserContext)
 
     const deleteCard = async () => {
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const response = await methods.deleteCard(token,cardId.cardId)
 
-        setUpdateCard(!updateCard)
+        try {
+            setIsFetching(true)
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            const response = await methods.deleteCard(token,cardId.cardId)
+            setCardsIds(prev => prev.filter((item) => item.cardId !== cardId.cardId))
+
+        } catch (error) {
+            console.log(error)
+        }finally {
+            setIsFetching(false)
+        }
     }
 
 
@@ -29,18 +32,22 @@ const Card = ({cardId}) => {
     };
 
     const handleTitleBlur = async () => {
-        setIsEditing(false);
-
-        const token =JSON.parse(localStorage.getItem("token")).accessToken
-        const response = await methods.updateCardTitle(token,cardId.cardId,editedTitle)
-        console.log(response)
-
-        setUpdateCard(!updateCard);
+        try {
+            setIsFetching(true)
+            setIsEditing(false);
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            const response = await methods.updateCardTitle(token,cardId.cardId,editedTitle)
+        } catch (error) {
+            console.log(error)
+        }finally {
+            setIsFetching(false)
+        }
     };
 
 
     return (
-            <Box sx={{
+            <Box
+             sx={{
                 display:"flex",
                 flexDirection:"row",
                 justifyContent:"center",
@@ -72,7 +79,6 @@ const Card = ({cardId}) => {
                     alignItem:"center",
                 }}>
                     <ClearIcon onClick={deleteCard} style={{width:"15px",height:"20px",marginTop:"20px",objectFit:"contain",cursor:"pointer"}}/>
-                    {/*<img onClick={deleteCard} style={{width:"15px",height:"20px",marginTop:"20px",objectFit:"contain",cursor:"pointer"}} src={close} alt="delete"/>*/}
                 </Box>
             </Box>
     );
