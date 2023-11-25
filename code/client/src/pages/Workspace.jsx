@@ -68,16 +68,17 @@ const Workspace = () => {
                     <DeskContext.Provider value={{currentWorkspace,setCurrentWorkspace,currentDeskData,setCurrentDeskData}}>
                         <SideBarBoards/>
 
+                        <Box sx={{width:"100%"}}>
+                            <Routes>
+                                <Route path="/account" element={<Account/>}/>
+                                <Route path=":id" element={<Desks />} />
+                                <Route path=":id/:deskId" element={<DeskElement />} />
 
-                        <Routes>
-                            <Route path="/account" element={<Account/>}/>
-                            <Route path=":id" element={<Desks />} />
-                            <Route path=":id/:deskId" element={<DeskElement />} />
-
-                            <Route path="/messages" element={<h2>messages</h2>}/>
-                            <Route path="/create" element={<NewWorkspace/>}/>
-                            <Route path="/myspace" element={<MyWorkspace/>}/>
-                        </Routes>
+                                <Route path="/messages" element={<h2>messages</h2>}/>
+                                <Route path="/create" element={<NewWorkspace/>}/>
+                                <Route path="/myspace" element={<MyWorkspace/>}/>
+                            </Routes>
+                        </Box>
                     </DeskContext.Provider>
 
                 </Box>

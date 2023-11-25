@@ -30,7 +30,7 @@ const EditColumnName = ({openModal,handleCloseModal, id,setColumns}) => {
                 closeAfterTransition
             >
                     <Fade in={openModal}>
-                        <Box sx={{ position: "absolute", display: "flex",flexDirection: "column",gap:"10px", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 400, bgcolor: "background.paper", padding: "20px", boxShadow: 24, p: 4 }}>
+                        <Box sx={{ position: "absolute", display: "flex",flexDirection: "column",gap:"10px", top: "50%", left: "50%", transform: "translate(-50%, -50%)", minWidth: 310, maxWidth: 400, bgcolor: "background.paper", padding: "20px", boxShadow: 24, p: 4 }}>
                             <Typography variant="h6" gutterBottom>
                                 Update Column Name
                             </Typography>
