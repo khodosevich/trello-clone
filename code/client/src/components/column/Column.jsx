@@ -3,7 +3,7 @@ import {Box} from "@mui/material";
 import {methods} from "../../api/methods";
 import {UserContext} from "../../Main";
 import CardList from '../card/CardList';
-import CardHeader from '../card/CardHeader';
+import ColumnHeader from '../card/CardHeader';
 import CreateCard from '../card/CreateCard';
 
 
@@ -35,7 +35,7 @@ const Column = ({column,setColumns}) => {
 
     return (
         <Box>
-            <CardHeader column={column} setColumns={setColumns} />
+            <ColumnHeader column={column} setColumns={setColumns} />
 
             <CardList cards={cardsIds} setCardIds={setCardIds}/>
 

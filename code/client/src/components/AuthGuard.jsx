@@ -24,17 +24,32 @@ const AuthGuard = (props) => {
                 }
             })
         } else {
-            const user = jwtDecode(localStorage.getItem("token"));
 
-            const token = JSON.parse(localStorage.getItem("token"))
-
-            if (user.exp < Date.now() / 1000) {
-                const response = await methods.refresh(token.accessToken,token.refreshToken)
-                console.log("refresh " , response)
-                localStorage.setItem("token" , JSON.stringify(response.data))
-
+            try{
                 const user = jwtDecode(localStorage.getItem("token"));
 
+                const token = JSON.parse(localStorage.getItem("token"))
+    
+                if (user.exp < Date.now() / 1000) {
+                    const response = await methods.refresh(token.accessToken,token.refreshToken)
+                    console.log("refresh " , response)
+                    localStorage.setItem("token" , JSON.stringify(response.data))
+    
+                    const user = jwtDecode(localStorage.getItem("token"));
+    
+                    setChecked(true)
+                    setUser(prev => {
+                        return {
+                            ...prev,
+                            id: user.sid,
+                            username: user.name,
+                            aud: user.aud,
+                            isAuth: true,
+                            exp: user.exp
+                        }
+                    })
+                }
+    
                 setChecked(true)
                 setUser(prev => {
                     return {
@@ -46,19 +61,11 @@ const AuthGuard = (props) => {
                         exp: user.exp
                     }
                 })
-            }
 
-            setChecked(true)
-            setUser(prev => {
-                return {
-                    ...prev,
-                    id: user.sid,
-                    username: user.name,
-                    aud: user.aud,
-                    isAuth: true,
-                    exp: user.exp
-                }
-            })
+            }catch(e) {
+                console.log(e)
+            }
+           
         }
     }, [user.isAuth]);
 

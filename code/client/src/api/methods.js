@@ -115,6 +115,9 @@ export const methods = {
 
     },
     updateColumnName(token,columnId,newName) {
+
+        console.log(columnId + "   " + newName)
+
         return api.put("column/name",{
             columnId: columnId,
             columnName: newName
@@ -155,6 +158,26 @@ export const methods = {
                  'Authorization': `Bearer ${token}`
              }
          })
+    },
+    updateDeskName (token,deskId,newName) {
+        return api.patch("desk/name",{
+            deskId: deskId,
+            deskName: newName
+        },{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
+    updateDeskVisibilityType(token,deskId,visibilityTypeCode) {
+        return api.patch("desk/visibility",{
+            deskId: deskId,
+            visibilityTypeCode: visibilityTypeCode
+        },{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 
 }

@@ -4,31 +4,15 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import ClearIcon from '@mui/icons-material/Clear';
 import { methods } from "../../api/methods";
 import { UserContext } from "../../Main";
+import EditColumnName from "../column/EditColumnName";
 
 
-const CardHeader = ({column,setColumns}) => {
+const ColumnHeader = ({column,setColumns}) => {
 
+    console.log(column)
     const {setIsFetching} = useContext(UserContext)
 
-    const [updateColumnName, setUpdateColumnName] = useState(false)
-
     const [editedColumnName,setEditedColumnName] = useState(column.name)
-
-    const changeName = async () => {
-        try{
-            setIsFetching(true)
-            const token =JSON.parse(localStorage.getItem("token")).accessToken
-            const res = await methods.updateColumnName(token,column.id,editedColumnName)
-
-        //     заменить текущее имя на новое
-
-        }catch(e) {
-            console.log(e)
-        }finally{
-            setIsFetching(false)
-            setUpdateColumnName(false)
-        }      
-    }
 
     const deleteColumn = async () => {
         try{
@@ -44,33 +28,41 @@ const CardHeader = ({column,setColumns}) => {
     }
 
 
+    const changeName = async () => {
+        try{
+            setIsFetching(true)
+            const token =JSON.parse(localStorage.getItem("token")).accessToken
+            const res = await methods.updateColumnName(token,column.id,editedColumnName)
+
+        //     заменить текущее имя на новое
+
+        }catch(e) {
+            console.log(e)
+        }finally{
+            setIsFetching(false)
+        }      
+    }
+
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
     return(
         <Box sx={{display:"flex",justifyContent:"space-between"}}>
                 <Box sx={{display:"flex",justifyContent:"space-between" , gap:"10px" , margin:"10px"}}>
 
-                    {
-                        !updateColumnName &&  <Box>
-                            {editedColumnName}
-                        </Box>
-                    }
+                    <EditColumnName setColumns={setColumns} id={column.id} openModal={openModal} handleCloseModal={handleCloseModal}/>
 
-                    {
-                        updateColumnName && <input
-                            value={editedColumnName}
-                            onChange={(e) => setEditedColumnName(e.target.value)}
-                            onBlur={changeName}
-                            style={{
-                                borderRadius:"20px",
-                                border:"0",
-                                outline:"0",
-                                padding:"5px"
-                            }}
-                            type="text"/>
-                    }
-
-                    <Box onClick={() => setUpdateColumnName(true)} sx={{cursor:"pointer"}}>
-                        <DriveFileRenameOutlineIcon/>
+                    <Box onClick={handleOpenModal} sx={{cursor:"pointer"}}>
+                        {column.name}
                     </Box>
+
                 </Box>
                 <Box>
                     <ClearIcon onClick={deleteColumn} style={{width:"20px",height:"20px", cursor:"pointer"}}/>
@@ -80,4 +72,4 @@ const CardHeader = ({column,setColumns}) => {
 
 }
 
-export default CardHeader;
+export default ColumnHeader;

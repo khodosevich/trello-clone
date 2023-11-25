@@ -4,6 +4,8 @@ import Column from "./Column";
 
 const ColumnList = ({columns,setColumns}) => {
 
+    console.log(columns)
+
     return (
         <Box sx={{display:"flex", flexDirection:"row", gap:"20px", flexWrap:"wrap",justifyContent:"center",alignItem:"center"}}>
             {
