@@ -22,6 +22,12 @@
 - *Database:* MySQL
 - *Authentication:* JSON Web Tokens (JWT)
 
+## Deploy
+
+Для просмотра и тестирования проекта перейдите по [ссылке.](http://task-manager.maketfay.com/#/)
+
+  
+
 ## Запуск
 
 1. **Клонировать репозиторий:**

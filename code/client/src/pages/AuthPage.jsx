@@ -36,45 +36,62 @@ const AuthPage = ({isExist}) => {
     const authHandler = async () => {
 
         if(isExist) {
-            console.log("login")
-            setIsFetching(true)
-            const response = await methods.login(creds)
-            const data = await response.data
-            localStorage.setItem("token" , JSON.stringify(data))
 
-            const decode = parseToken(data.accessToken)
-            console.log(decode)
+            try{
+                console.log("login")
+                setIsFetching(true)
+                const response = await methods.login(creds)
+                const data = await response.data
+    
+                localStorage.setItem("token" , JSON.stringify(data))
+    
+                const decode = parseToken(data.accessToken)
+                console.log(decode)
+    
+                setUser({
+                    id: decode.sid,
+                    username: decode.name,
+                    aud:decode.aud,
+                    isAuth: true,
+                    exp: decode.exp
+                })
+    
+            }catch(e) {
+                console.log(e)
+            }finally {
+                setIsFetching(false)
+                navigate("/workspace/myspace")
+            }
 
-            setUser({
-                id: decode.sid,
-                username: decode.name,
-                aud:decode.aud,
-                isAuth: true,
-                exp: decode.exp
-            })
-
+            
             setIsFetching(false)
             navigate("/workspace/myspace")
 
         }else {
-            console.log("register")
-            setIsFetching(true)
-            const response = await methods.register(creds)
-            const data = await response.data
-            console.log(data)
-            localStorage.setItem("token" , JSON.stringify(data))
+            try {
+                console.log("register")
+                setIsFetching(true)
+                const response = await methods.register(creds)
+                const data = await response.data
+                console.log(data)
+                localStorage.setItem("token" , JSON.stringify(data))
 
-            const decode = parseToken(data.accessToken)
+                const decode = parseToken(data.accessToken)
 
-            setUser({
-                id: decode.sid,
-                username: decode.name,
-                aud:decode.aud,
-                isAuth: true,
-                exp: decode.exp
-            })
-            setIsFetching(false)
-            navigate("/workspace/myspace")
+                setUser({
+                    id: decode.sid,
+                    username: decode.name,
+                    aud:decode.aud,
+                    isAuth: true,
+                    exp: decode.exp
+                })
+            }catch(e){
+                console.log("error" , e.code)
+            }finally {
+                setIsFetching(false)
+                navigate("/workspace/myspace")
+            }
+          
         }
     }
 
