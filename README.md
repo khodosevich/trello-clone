@@ -1,6 +1,6 @@
 # Trello-clone
 
-![Trello Clone](./assets/mockup%20version%202.png)
+![Trello Clone](./assets/mockup%20v3.png)
 
 ## О проекте
 

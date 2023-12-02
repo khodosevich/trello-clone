@@ -3,6 +3,7 @@ import plus from "../../img/plus.png"
 import { Box , Button} from "@mui/material";
 import { UserContext } from "../../Main";
 import {methods} from "../../api/methods";
+import AddIcon from '@mui/icons-material/Add';
 
 const CreateCard = ({column,setCardIds}) => {
 
@@ -49,7 +50,7 @@ const CreateCard = ({column,setCardIds}) => {
                         gap:"10px"
                     }} onClick={()=> setCreateCard(true)}
                     >
-                        <img style={{width:"20px",height:"20px"}} src={plus} alt="add"/>
+                        <AddIcon/>
                         Create a card
                     </Box>
             }

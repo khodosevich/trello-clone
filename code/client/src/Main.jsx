@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import Home from "./pages/Home";
 import {Box} from "@mui/material";
 import {Route, Routes, useLocation} from "react-router-dom";
@@ -30,12 +30,16 @@ const Main = () => {
     const location = useLocation()
     const renderHeaderAndFooter = location.pathname !== "/register" &&  location.pathname !== "/login"
 
+    useEffect(() => {
+        document.body.style.overflow = isFetching ? "hidden" : "auto"
+    }, [isFetching])
+
     return (
         <Box>
             {
                 isFetching && <CircularIndeterminate/>
             }
-
+            
             <UserContext.Provider value={{user,setUser,isFetching, setIsFetching}}>
                 {renderHeaderAndFooter && <Header/>}
                 <Box style={{ minHeight:"80vh"}}>

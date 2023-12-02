@@ -3,10 +3,10 @@ import {Box} from "@mui/material";
 import {methods} from "../../api/methods";
 import ClearIcon from '@mui/icons-material/Clear';
 import {UserContext} from "../../Main";
+import EditCardTitle from './EditCardTitle';
 
 
 const Card = ({cardId,setCardsIds}) => {
-    const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(cardId.title);
 
     const {setIsFetching} = useContext(UserContext)
@@ -26,24 +26,19 @@ const Card = ({cardId,setCardsIds}) => {
         }
     }
 
+    const [openModal, setOpenModal] = useState(false)
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
 
     const handleTitleChange = (e) => {
         setEditedTitle(e.target.value);
     };
-
-    const handleTitleBlur = async () => {
-        try {
-            setIsFetching(true)
-            setIsEditing(false);
-            const token =JSON.parse(localStorage.getItem("token")).accessToken
-            const response = await methods.updateCardTitle(token,cardId.cardId,editedTitle)
-        } catch (error) {
-            console.log(error)
-        }finally {
-            setIsFetching(false)
-        }
-    };
-
 
     return (
             <Box
@@ -56,11 +51,9 @@ const Card = ({cardId,setCardsIds}) => {
             }}>
                 <input
                     type="text"
-                    value={editedTitle}
+                    value={cardId.title}
                     onChange={handleTitleChange}
-                    onBlur={handleTitleBlur}
-                    readOnly={!isEditing}
-                    onClick={() => setIsEditing(true)}
+                    onClick={handleOpenModal}
                     style={{
                         width: "90%",
                         margin: "10px",
@@ -80,6 +73,7 @@ const Card = ({cardId,setCardsIds}) => {
                 }}>
                     <ClearIcon onClick={deleteCard} style={{width:"15px",height:"20px",marginTop:"20px",objectFit:"contain",cursor:"pointer"}}/>
                 </Box>
+                <EditCardTitle openModal={openModal}  handleCloseModal={handleCloseModal} card={cardId} setCards={setCardsIds}/>
             </Box>
     );
 };
