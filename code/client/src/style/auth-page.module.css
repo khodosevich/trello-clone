@@ -2,11 +2,19 @@
     background:#b7b7b7;
     height:100vh;
     display:flex;
+    flex-direction: column;
     justify-content:center;
-    /*align-items:center;*/
+    align-items:center;
 
-    padding-top: 50px;
 }
+
+.alert {
+    position: absolute;
+    top: 5%;
+    z-index: 1;
+    min-width: 300px;
+}
+
 
 .auth_content {
     padding:0 100px;

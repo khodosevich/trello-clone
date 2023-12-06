@@ -14,13 +14,13 @@ export const methods = {
     },
     register(user) {
          return api.post("user/register", {
-             "userName": user.username,
+             "userName": user.email,
              "password": user.password
          })
     },
    login(user){
        return api.post("user/login",{
-             "userName": user.username,
+             "userName": user.email,
              "password": user.password
        })
     },

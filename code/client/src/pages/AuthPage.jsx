@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {methods} from "../api/methods";
-import {Box, Button, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, TextField, Typography} from "@mui/material";
 import classes from "../style/auth-page.module.css";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {UserContext} from "../Main";
@@ -16,14 +16,16 @@ const AuthPage = ({isExist}) => {
     const email = searchParams.get("email");
 
     const [creds, setCreds] = useState({
-        username:"",
+        email:"",
         password:""
     })
-    const usernameHandler = (e) => {
+    const emailHandler = (e) => {
         setCreds(prevState => ({
             ...prevState,
-            username:e.target.value
+            email:e.target.value
         }))
+        setMyArelt(false)
+        setWarningAlert(false)
     }
 
     const passwordHandler = (e) => {
@@ -33,7 +35,28 @@ const AuthPage = ({isExist}) => {
         }))
     }
 
+    const validateEmail = (email) => {
+        return email
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          ) !== null
+    };
+
+    const [myArelt, setMyArelt] = useState(false)
+    const [warningAlert, setWarningAlert] = useState(false)
+
     const authHandler = async () => {
+
+        if(!creds.email || !creds.password) {
+            setMyArelt(true)
+            return
+        }
+
+        if(!validateEmail(creds.email)) {
+            setMyArelt(true)
+            return
+        }
 
         if(isExist) {
 
@@ -56,16 +79,15 @@ const AuthPage = ({isExist}) => {
                     exp: decode.exp
                 })
     
-            }catch(e) {
-                console.log(e)
-            }finally {
                 setIsFetching(false)
                 navigate("/workspace/myspace")
+
+            }catch(e) {
+                setMyArelt(true)
+                setIsFetching(false)
+                console.log(e) 
             }
 
-            
-            setIsFetching(false)
-            navigate("/workspace/myspace")
 
         }else {
             try {
@@ -85,11 +107,14 @@ const AuthPage = ({isExist}) => {
                     isAuth: true,
                     exp: decode.exp
                 })
-            }catch(e){
-                console.log("error" , e.code)
-            }finally {
-                setIsFetching(false)
+
                 navigate("/workspace/myspace")
+
+            }catch(e){
+                setWarningAlert(true)
+                setIsFetching(false)
+                setMyArelt(true)
+                console.log("error" , e.code)
             }
           
         }
@@ -97,13 +122,22 @@ const AuthPage = ({isExist}) => {
 
     useEffect(() => {
         setCreds({
-            username:email,
+            email:email,
             password:""
         })
     }, []);
 
     return (
-        <Box className={classes.auth_container}>
+        
+         <Box className={classes.auth_container}>
+
+            { 
+                 <Box className={classes.alert}>
+                        { myArelt && <Alert severity="error">This is an error with Email or Password — check it out!</Alert> }    
+                        { warningAlert && <Alert style={{marginTop:"10px"}} severity="warning">Maybe user with this email already exists!</Alert>}
+                 </Box>
+             }
+
             <Box className={classes.auth_content}>
                 <Typography variant="h4">
                     {isExist ? "Login" : "Registration"}
@@ -111,9 +145,9 @@ const AuthPage = ({isExist}) => {
 
                 <Box style={{display:"flex",gap:"15px" , flexDirection:"column"}}>
                     <TextField
-                        value={creds.username || ''}
-                        onChange={(e) => usernameHandler(e)}
-                        id="outlined-basic" label="Username" variant="outlined" />
+                        value={creds.email || ''}
+                        onChange={(e) => emailHandler(e)}
+                        id="outlined-basic" label="Email" variant="outlined" />
                     <TextField onChange={(e) => passwordHandler(e)} id="outlined-basic" type="password" label="Password" variant="outlined" />
                 </Box>
 
